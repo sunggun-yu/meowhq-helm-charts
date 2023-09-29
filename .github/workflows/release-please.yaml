@@ -2,6 +2,9 @@ on:
   push:
     branches:
       - main
+    paths: 
+      - .release-please-manifest.json
+      - "charts/**"
 name: release-please
 jobs:
   release-please:
@@ -22,6 +25,16 @@ jobs:
           monorepo-tags: true
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs.releases_created }}
+      - name: test
+        run: |
+          # find the chart that contains changes
+          CHANGED_CHARTS=$(git diff --name-only HEAD^ HEAD | grep "^charts/")
+
+          echo "changed charts: $CHANGED_CHARTS"
+
+          for chart_dir in $CHANGED_CHARTS; do
+            echo $chart_dir
+          done
       - name: Run chart-releaser
         if: ${{ steps.release.outputs.releases_created }}
         uses: helm/chart-releaser-action@v1.5.0
