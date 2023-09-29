@@ -1,0 +1,12 @@
+# ------------------------------------------------------------------------------
+# argocd helm chart that wraps the official chart repository
+# ------------------------------------------------------------------------------
+apiVersion: v2
+name: meowhq-argocd
+description: A Helm chart for argocd
+type: application
+version: 0.0.1
+dependencies:
+  - name: argo-cd
+    version: 5.46.7
+    repository: "https://argoproj.github.io/argo-helm"

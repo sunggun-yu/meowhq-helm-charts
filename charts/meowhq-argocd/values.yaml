@@ -1,0 +1,97 @@
+# ------------------------------------------------------------------------------
+# values for argocd
+# ------------------------------------------------------------------------------
+
+# Configure Istio Gateway and VirtualService
+istio:
+  enabled: true
+  gateways:
+  - argocd/argocd-gw
+  virtualService:
+    host: argocd.lab.meowhq.dev
+
+podSecurityPoliciesEnabled: true
+
+# create ArgoCD secrets with external-secrets
+# ArgoCD secrets for:
+# - repository
+# - repository cred template
+secretFromExternalSecrets:
+  enabled: true
+  secretStores: []
+  secrets:
+  - name: "meowhq-k8s-package"
+    type: "repository"
+    refreshInterval: 15s
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster-jwt
+    data:
+      - key: github/apps/meowhq-k8s-package-argocd-readonly
+        property: app-id
+        secretKey: app_id
+      - key: github/apps/meowhq-k8s-package-argocd-readonly
+        property: installation-id
+        secretKey: installation_id
+      - key: github/apps/meowhq-k8s-package-argocd-readonly
+        property: private-key
+        secretKey: private_key
+    targetData:
+      githubAppID: "{{ .app_id }}"
+      githubAppInstallationID: "{{ .installation_id }}"
+      githubAppPrivateKey: "{{ .private_key }}"
+      url: https://github.com/sunggun-yu/meowhq-k8s-packages.git
+      project: default
+      type: git
+
+# ------------------------------------------------------------------------------
+# values for official argo-cd helm chart which is dependency of this chart
+# as per helm dependency spec, 
+# all the values of dependency chart must be under the element of chart name, which is `argo-cd` in this case
+# ------------------------------------------------------------------------------
+argo-cd:
+  global:
+    logging:
+      format: json
+      # -- Set the global logging level. One of: `debug`, `info`, `warn` or `error`
+      level: warn
+    networkPolicy:
+      # -- Create NetworkPolicy objects for all components
+      create: true
+    deploymentAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      configmap.reloader.stakater.com/reload: argocd-cm,argocd-rbac-cm
+  configs:
+    cm:
+      kustomize.buildOptions: --enable-helm
+      resource.exclusions: |
+        - apiGroups:
+          - extensions
+          kinds:
+          - Ingress
+          clusters:
+          - "*"
+      accounts.readonly: apikey, login
+    params:
+      # Istio occurs too many redirect issue
+      # the issue will resolve by applying server.insecure="true"
+      server.insecure: true
+      server.enable.gzip: true
+    rbac:
+      policy.default: "role:readonly"
+      policy.csv: |
+        p, role:readonly, applications, get, */*, allow
+        p, role:readonly, certificates, get, *, allow
+        p, role:readonly, clusters, get, *, allow
+        p, role:readonly, repositories, get, *, allow
+        p, role:readonly, projects, get, *, allow
+        p, role:readonly, accounts, get, *, allow
+        p, role:readonly, gpgkeys, get, *, allow
+
+        g, readonly, role:readonly
+        g, admin, role:admin
+    secret:
+      argocdServerAdminPassword: "$2a$12$JYuAPOuwmwjMKRfLIPtRoeM7ZSL/Im10hSkC2.7VIGq2OylAxvGVy"
+      extra:
+        accounts.readonly.password: "$2a$10$AiztgQjzMHq0u40N2D5wbe5HVzWCAgmzXmHEd.emU4FTa5bi8Pxmi"
+        accounts.readonly.passwordMtime: 2022-10-08T03:07:27Z

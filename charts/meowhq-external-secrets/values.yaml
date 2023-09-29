@@ -1,0 +1,28 @@
+# ------------------------------------------------------------------------------
+# values for external-secrets
+# ------------------------------------------------------------------------------
+
+external-secrets:
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 100m
+    limits:
+      memory: 200Mi
+      cpu: 200m
+  webhook:
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 200Mi
+        cpu: 200m
+  certController:
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 200Mi
+        cpu: 200m

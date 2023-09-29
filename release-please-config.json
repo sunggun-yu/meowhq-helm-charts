@@ -1,0 +1,10 @@
+{
+  "bootstrap-sha": "4df390d8a8755bf062623c4ec7976f280f781314",
+  "release-type": "helm",
+  "packages": {
+    "charts/meowhq-argocd": {},
+    "charts/meowhq-external-secrets": {},
+    "charts/meowhq-vault": {}
+  },
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
+}

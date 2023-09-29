@@ -1,0 +1,12 @@
+# ------------------------------------------------------------------------------
+# external-secrets helm chart that wraps the official chart repository
+# ------------------------------------------------------------------------------
+apiVersion: v2
+name: meowhq-external-secrets
+description: A Helm chart for external-secrets
+type: application
+version: 0.0.1
+dependencies:
+  - name: external-secrets
+    version: 0.9.5
+    repository: "https://charts.external-secrets.io"
