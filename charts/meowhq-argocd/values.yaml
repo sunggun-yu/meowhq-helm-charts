@@ -94,4 +94,4 @@ argo-cd:
       argocdServerAdminPassword: "$2a$12$JYuAPOuwmwjMKRfLIPtRoeM7ZSL/Im10hSkC2.7VIGq2OylAxvGVy"
       extra:
         accounts.readonly.password: "$2a$10$AiztgQjzMHq0u40N2D5wbe5HVzWCAgmzXmHEd.emU4FTa5bi8Pxmi"
-        accounts.readonly.passwordMtime: 2022-10-08T03:07:27Z
+        accounts.readonly.passwordMtime: 2022-10-08T03:05:27Z
