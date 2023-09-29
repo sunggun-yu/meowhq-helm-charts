@@ -1,5 +1,5 @@
 {
-  "bootstrap-sha": "4df390d8a8755bf062623c4ec7976f280f781314",
+  "bootstrap-sha": "684ff4d7190c46690ac4541847f839a4822cfd45",
   "release-type": "helm",
   "packages": {
     "charts/meowhq-argocd": {},
