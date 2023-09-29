@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+name: release-please
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - id: generate_token
+        name: Generate github token of Github Application
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - id: release
+        uses: GoogleCloudPlatform/release-please-action@v3
+        with:
+          release-type: helm
+          token: ${{ steps.generate_token.outputs.token }}
+          command: manifest
+          monorepo-tags: true
+      - uses: actions/checkout@v2
+        if: ${{ steps.release.outputs.releases_created }}
+      - name: update
+        run: |
+          ls -la
