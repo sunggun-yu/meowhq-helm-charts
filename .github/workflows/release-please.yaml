@@ -24,7 +24,6 @@ jobs:
           command: manifest
           monorepo-tags: true
       - uses: actions/checkout@v2
-        if: ${{ steps.release.outputs.releases_created }}
       - name: test
         run: |
           # find the chart that contains changes
