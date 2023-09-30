@@ -70,8 +70,7 @@ jobs:
           
           # make the outputs
           if [ ${#version_changed_charts[@]} -gt 0 ]; then
-            chart_names=$(printf "%s\n" "${version_changed_charts[@]}")
-            echo "charts=${chart_names}" >>$GITHUB_OUTPUT
+            echo "charts=${version_changed_charts[@]}" >>$GITHUB_OUTPUT
             echo "result=ok" >>$GITHUB_OUTPUT
           else
             echo "error=No version changed charts found" >>$GITHUB_OUTPUT

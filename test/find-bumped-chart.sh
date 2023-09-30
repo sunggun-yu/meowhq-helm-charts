@@ -31,5 +31,14 @@ cat $GITHUB_OUTPUT
 
 for dir in ${version_changed_charts[@]}; do
   ls -la "$dir"
-  helm package $dir --dependency-update --destination .target
+  # helm package $dir --dependency-update --destination .target
+done
+
+## might be better to convert result as json to loop in separated jobs of gha
+json_output=$(echo "${version_changed_charts[@]}" | tr -d '\r\n'  | jq -R -s -c 'split(" ")')
+echo $json_output
+
+# Loop through the JSON array
+for item in $(echo "$json_output" | jq -r '.[]'); do
+  echo "Item: $item"
 done
