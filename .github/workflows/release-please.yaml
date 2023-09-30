@@ -9,6 +9,8 @@ name: release-please
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
     steps:
       - id: generate_token
         name: Generate github token of Github Application
@@ -62,13 +64,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          path: charts
           fetch-depth: 2 # to be able to obtain files changed in the latest commit
-      - id: get-bumped-chart
+      - id: get-bumped-charts
         name: 'Get modified charts'
         run: |
           echo "---> ${{ needs.release-please.outputs.releases_created }}"
-          cd charts
           ls -la
 
           # get the changed files
