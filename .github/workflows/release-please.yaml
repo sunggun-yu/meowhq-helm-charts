@@ -80,8 +80,8 @@ jobs:
 
           # print the outputs
           cat $GITHUB_OUTPUT
-      - id: show-error
-        name: 'Show error'
+      - id: show-warning
+        name: 'Show Warning'
         if: ${{ steps.get-bumped-charts.outputs.result == 'fail' }}
         run: |
           echo "${{ steps.get-bumped-charts.outputs.error }}"
