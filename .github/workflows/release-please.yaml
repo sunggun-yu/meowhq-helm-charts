@@ -97,6 +97,8 @@ jobs:
     name: Publish Charts to registry
     permissions:
       contents: read
+    env:
+      PUBLISH_DIR: ".target"
     steps:
       - name: Install Helm
         uses: azure/setup-helm@v3
@@ -105,14 +107,22 @@ jobs:
       - name: Package Charts
         id: package-charts
         run: |
-          publish_dir=.target
-          mkdir -p $publish_dir
+          mkdir -p $PUBLISH_DIR
           version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
           for dir in ${version_changed_charts}; do
             ls -la "$dir"
-            helm package $dir --dependency-update --destination $publish_dir
+            helm package $dir --dependency-update --destination $PUBLISH_DIR
           done
-          ls -la $publish_dir
+          ls -la $PUBLISH_DIR
+      - name: Publish Charts
+        id: publish-charts
+        run: |
+          # Use a for loop to process each .tgz file in the $PUBLISH_DIR directory
+          for file in "$PUBLISH_DIR"/*.tgz; do
+            if [ -f "$file" ]; then
+              echo "helm push $PUBLISH_DIR/$file oci://harbor.lab.meowhq.dev/charts"
+            fi
+          done
 
   publish-charts-github-release:
     runs-on: ubuntu-latest
