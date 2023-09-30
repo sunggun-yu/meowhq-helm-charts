@@ -23,6 +23,11 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           command: manifest
           monorepo-tags: true
+      - id: check-changes
+        name: test
+        run: |
+          echo "releases created: ${{ steps.release.outputs.releases_created }}"
+
       # - uses: actions/checkout@v2
       # - name: test
       #   run: |
