@@ -100,8 +100,8 @@ jobs:
       - id: test
         name: test
         run: |
-          bumped_charts=${{needs.get-bumped-charts.outputs.charts}}
-          for chart_dir in bumped_charts; do
+          bumped_charts="${{needs.get-bumped-charts.outputs.charts}}"
+          for chart_dir in $bumped_charts; do
             echo "chart dir: $chart_dir"
             cd $chart_dir
             ls -la
