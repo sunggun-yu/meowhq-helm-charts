@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-vault-v0.1.2...meowhq-vault-v0.2.0) (2023-09-30)
+
+
+### Features
+
+* gha ([a81bf28](https://github.com/sunggun-yu/meowhq-helm-charts/commit/a81bf28af79155594db166e79b26f246520d14a2))
+
 ## [0.1.2](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-vault-v0.1.1...meowhq-vault-v0.1.2) (2023-09-30)
 
 
