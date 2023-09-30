@@ -28,3 +28,8 @@ else
 fi
 
 cat $GITHUB_OUTPUT
+
+for dir in ${version_changed_charts[@]}; do
+  ls -la "$dir"
+  helm package $dir --dependency-update --destination .target
+done

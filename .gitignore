@@ -1,1 +1,4 @@
 .history
+**/.DS_Store
+**/*.tgz
+.target

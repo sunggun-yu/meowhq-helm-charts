@@ -80,38 +80,45 @@ jobs:
 
           # print the outputs
           cat $GITHUB_OUTPUT
-      # - id: show-error
-      #   name: 'Show error'
-      #   if: ${{ steps.get-bumped-charts.outputs.result == 'fail' }}
-      #   uses: actions/github-script@v6
-      #   with:
-      #     script: |
-      #         core.setFailed('${{ steps.get-bumped-charts.outputs.error }}')
+      - id: show-error
+        name: 'Show error'
+        if: ${{ steps.get-bumped-charts.outputs.result == 'fail' }}
+        run: |
+          echo "${{ steps.get-bumped-charts.outputs.error }}"
+          echo "publish jobs/steps will be interrupted"
+        # uses: actions/github-script@v6
+        # with:
+        #   script: |
+        #       core.setFailed('${{ steps.get-bumped-charts.outputs.error }}')
+
   publish-charts-repository:
     runs-on: ubuntu-latest
     needs: get-bumped-charts
     if: ${{ needs.get-bumped-charts.outputs.result == 'ok' }}
-    name: Publish Charts
+    name: Publish Charts to registry
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v3
-        name: Checkout Repository
-      - id: test
-        name: test
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Package Charts
+        id: package-charts
         run: |
-          bumped_charts="${{needs.get-bumped-charts.outputs.charts}}"
-          for chart_dir in $bumped_charts; do
-            echo "chart dir: $chart_dir"
-            cd $chart_dir
-            ls -la
-            # cat Chart.yaml
+          publish_dir=.target
+          mkdir -p $publish_dir
+          for dir in "${{needs.get-bumped-charts.outputs.charts}}"; do
+            ls -la "$dir"
+            helm package $dir --dependency-update --destination $publish_dir
           done
+          ls -la $publish_dir
+
   publish-charts-github-release:
     runs-on: ubuntu-latest
     needs: get-bumped-charts
     if: ${{ needs.get-bumped-charts.outputs.result == 'ok' }}
-    name: Publish Charts
+    name: Publish Charts to Github
     permissions:
       contents: read
     steps:
