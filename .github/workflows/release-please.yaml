@@ -30,27 +30,6 @@ jobs:
         run: |
           echo "releases created: ${{ steps.release.outputs.releases_created }}"
 
-      # - uses: actions/checkout@v2
-      # - name: test
-      #   run: |
-      #     # find the chart that contains changes
-      #     if [ "$(git rev-parse --abbrev-ref HEAD)" == "HEAD" ]; then
-      #       # Detached HEAD state, use HEAD~1 instead
-      #       CHANGED_CHARTS=$(git diff --name-only HEAD~1 HEAD | grep "^charts/")
-      #     else
-      #       CHANGED_CHARTS=$(git diff --name-only HEAD^ HEAD | grep "^charts/")
-      #     fi
-
-      #     echo "changed charts: $CHANGED_CHARTS"
-
-      #     for chart_dir in $CHANGED_CHARTS; do
-      #       echo $chart_dir
-      #     done
-      # - name: Run chart-releaser
-      #   if: ${{ steps.release.outputs.releases_created }}
-      #   uses: helm/chart-releaser-action@v1.5.0
-      #   env:
-      #     CR_TOKEN: ${{ steps.generate_token.outputs.token }}
   get-bumped-charts:
     runs-on: ubuntu-latest
     needs: release-please
@@ -101,14 +80,14 @@ jobs:
 
           # print the outputs
           cat $GITHUB_OUTPUT
-      - id: show-error
-        name: 'Show error'
-        if: ${{ steps.get-bumped-charts.outputs.result == 'fail' }}
-        uses: actions/github-script@v6
-        with:
-          script: |
-              core.setFailed('${{ steps.get-bumped-charts.outputs.error }}')
-  publish-charts:
+      # - id: show-error
+      #   name: 'Show error'
+      #   if: ${{ steps.get-bumped-charts.outputs.result == 'fail' }}
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #         core.setFailed('${{ steps.get-bumped-charts.outputs.error }}')
+  publish-charts-repository:
     runs-on: ubuntu-latest
     needs: get-bumped-charts
     if: ${{ needs.get-bumped-charts.outputs.result == 'ok' }}
@@ -128,3 +107,23 @@ jobs:
             ls -la
             # cat Chart.yaml
           done
+  publish-charts-github-release:
+    runs-on: ubuntu-latest
+    needs: get-bumped-charts
+    if: ${{ needs.get-bumped-charts.outputs.result == 'ok' }}
+    name: Publish Charts
+    permissions:
+      contents: read
+    steps:
+      - id: generate_token
+        name: Generate github token of Github Application
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - uses: actions/checkout@v3
+        name: Checkout Repository
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.5.0
+        env:
+          CR_TOKEN: ${{ steps.generate_token.outputs.token }}
