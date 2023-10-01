@@ -138,11 +138,13 @@ jobs:
 
           version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
           for dir in ${version_changed_charts}; do
+            cat <<EOF
             helm cm-push \
               --username ${{ secrets.HELM_REPO_USERNAME }} \
               --password ${{ secrets.HELM_REPO_PASSWORD }} \
               $dir \
               ${{ secrets.HELM_REPO_URL }}
+            EOF
           done
 
   publish-charts-github-release:
