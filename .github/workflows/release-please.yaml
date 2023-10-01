@@ -132,8 +132,8 @@ jobs:
         id: login-charts-oci
         run: |
           # login to oci registry
-          echo ${{ secrets.HARBOR_CICD_PASSWORD }} | \
-          helm registry login --username ${{ secrets.HARBOR_CICD_USERNAME }} \
+          echo '${{ secrets.HARBOR_CICD_PASSWORD }}' | \
+          helm registry login --username '${{ secrets.HARBOR_CICD_USERNAME }}' \
             --password-stdin \
             harbor.lab.meowhq.dev
           echo "---------------------------------------------------------"
