@@ -91,7 +91,7 @@ jobs:
         #       core.setFailed('${{ steps.get-bumped-charts.outputs.error }}')
 
   publish-charts:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: get-bumped-charts
     if: ${{ needs.get-bumped-charts.outputs.result == 'ok' }}
     name: Publish Charts to registry
@@ -110,10 +110,8 @@ jobs:
           mkdir -p $PUBLISH_DIR
           version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
           for dir in ${version_changed_charts}; do
-            ls -la "$dir"
             helm package $dir --dependency-update --destination $PUBLISH_DIR
           done
-          ls -la $PUBLISH_DIR
       - name: Publish Charts to OCI Registry
         id: push-charts-oci
         run: |
@@ -126,7 +124,7 @@ jobs:
           # Use a for loop to process each .tgz file in the $PUBLISH_DIR directory
           for file in "$PUBLISH_DIR"/*.tgz; do
             if [ -f "$file" ]; then
-              echo "helm push $file oci://${{ secrets.HARBOR_HOST}}/charts"
+              helm push $file oci://${{ secrets.HARBOR_HOST}}/charts
             fi
           done
 
@@ -138,13 +136,11 @@ jobs:
 
           version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
           for dir in ${version_changed_charts}; do
-            cat <<EOF
             helm cm-push \
               --username ${{ secrets.HELM_REPO_USERNAME }} \
               --password ${{ secrets.HELM_REPO_PASSWORD }} \
               $dir \
               ${{ secrets.HELM_REPO_URL }}
-            EOF
           done
 
   publish-charts-github-release:
