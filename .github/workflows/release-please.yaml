@@ -90,7 +90,7 @@ jobs:
         #   script: |
         #       core.setFailed('${{ steps.get-bumped-charts.outputs.error }}')
 
-  publish-charts-repository:
+  publish-charts:
     runs-on: ubuntu-latest
     needs: get-bumped-charts
     if: ${{ needs.get-bumped-charts.outputs.result == 'ok' }}
@@ -104,7 +104,7 @@ jobs:
         uses: azure/setup-helm@v3
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: Package Charts
+      - name: Package Charts to push to OCI registry
         id: package-charts
         run: |
           mkdir -p $PUBLISH_DIR
@@ -114,14 +114,35 @@ jobs:
             helm package $dir --dependency-update --destination $PUBLISH_DIR
           done
           ls -la $PUBLISH_DIR
-      - name: Publish Charts
-        id: publish-charts
+      - name: Publish Charts to OCI Registry
+        id: push-charts-oci
         run: |
+          # login to oci registry
+          helm registry login \
+            --username ${{ secrets.HARBOR_CICD_USERNAME }} \
+            --password ${{ secrets.HARBOR_CICD_PASSWORD }} \
+            ${{ secrets.HARBOR_HOST}}
+
           # Use a for loop to process each .tgz file in the $PUBLISH_DIR directory
           for file in "$PUBLISH_DIR"/*.tgz; do
             if [ -f "$file" ]; then
-              echo "helm push $PUBLISH_DIR/$file oci://harbor.lab.meowhq.dev/charts"
+              echo "helm push $file oci://${{ secrets.HARBOR_HOST}}/charts"
             fi
+          done
+
+      - name: Publish Charts to repository
+        id: push-charts-repository
+        run: |
+          # install helm plugin helm-push to publish chart to "repository"
+          helm plugin install https://github.com/chartmuseum/helm-push
+
+          version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
+          for dir in ${version_changed_charts}; do
+            helm cm-push \
+              --username ${{ secrets.HELM_REPO_USERNAME }} \
+              --password ${{ secrets.HELM_REPO_PASSWORD }} \
+              $dir \
+              ${{ secrets.HELM_REPO_URL }}
           done
 
   publish-charts-github-release:
