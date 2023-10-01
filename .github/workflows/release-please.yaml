@@ -104,27 +104,6 @@ jobs:
         uses: azure/setup-helm@v3
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: Package Charts to push to OCI registry
-        id: package-charts
-        run: |
-          mkdir -p $PUBLISH_DIR
-          version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
-          for dir in ${version_changed_charts}; do
-            helm package $dir --dependency-update --destination $PUBLISH_DIR
-          done
-      - name: Publish Charts to OCI Registry
-        id: push-charts-oci
-        run: |
-          # login to oci registry
-          echo ${{ secrets.HARBOR_CICD_PASSWORD }} | helm registry login -u ${{ secrets.HARBOR_CICD_USERNAME }} --password-stdin ${{ secrets.HARBOR_HOST}}
-
-          # Use a for loop to process each .tgz file in the $PUBLISH_DIR directory
-          for file in "$PUBLISH_DIR"/*.tgz; do
-            if [ -f "$file" ]; then
-              echo $file
-              helm push $file oci://${{ secrets.HARBOR_HOST}}/charts
-            fi
-          done
 
       - name: Publish Charts to repository
         id: push-charts-repository
@@ -138,7 +117,33 @@ jobs:
               --username ${{ secrets.HELM_REPO_USERNAME }} \
               --password ${{ secrets.HELM_REPO_PASSWORD }} \
               $dir \
-              ${{ secrets.HELM_REPO_URL }}
+              https://chartmuseum.lab.meowhq.dev
+          done
+
+      - name: Package Charts to push to OCI registry
+        id: package-charts
+        run: |
+          mkdir -p $PUBLISH_DIR
+          version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
+          for dir in ${version_changed_charts}; do
+            helm package $dir --dependency-update --destination $PUBLISH_DIR
+          done
+      - name: Publish Charts to OCI Registry
+        id: push-charts-oci
+        run: |
+          # login to oci registry
+          echo ${{ secrets.HARBOR_CICD_PASSWORD }} | \
+          helm registry login \
+            --username ${{ secrets.HARBOR_CICD_USERNAME }} \
+            --password-stdin \
+            harbor.lab.meowhq.dev
+
+          # Use a for loop to process each .tgz file in the $PUBLISH_DIR directory
+          for file in "$PUBLISH_DIR"/*.tgz; do
+            if [ -f "$file" ]; then
+              echo $file
+              helm push $file oci://harbor.lab.meowhq.dev/charts
+            fi
           done
 
   publish-charts-github-release:
