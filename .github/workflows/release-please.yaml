@@ -132,16 +132,12 @@ jobs:
         id: push-charts-oci
         run: |
           # login to oci registry
-          echo ${{ secrets.HARBOR_CICD_PASSWORD }} | \
-          helm registry login \
-            --username ${{ secrets.HARBOR_CICD_USERNAME }} \
-            --password-stdin \
-            harbor.lab.meowhq.dev
-
+          echo ${{ secrets.HARBOR_CICD_PASSWORD }} | helm registry login --username ${{ secrets.HARBOR_CICD_USERNAME }} --password-stdin harbor.lab.meowhq.dev
+          echo "---------------------------------------------------------"
           # Use a for loop to process each .tgz file in the $PUBLISH_DIR directory
           for file in "$PUBLISH_DIR"/*.tgz; do
             if [ -f "$file" ]; then
-              echo $file
+              echo "$file"
               helm push $file oci://harbor.lab.meowhq.dev/charts
             fi
           done
