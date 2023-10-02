@@ -153,7 +153,7 @@ jobs:
     if: ${{ needs.get-bumped-charts.outputs.result == 'ok' }}
     name: Publish Charts to Github
     permissions:
-      contents: read
+      contents: write
     steps:
       - id: create_github_app_token
         name: Create github token of Github Application
@@ -165,5 +165,7 @@ jobs:
         name: Checkout Repository
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
+        with:
+          charts_dir: charts
         env:
           CR_TOKEN: ${{ steps.create_github_app_token.outputs.token }}
