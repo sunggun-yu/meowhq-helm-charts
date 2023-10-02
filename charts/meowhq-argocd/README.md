@@ -1,16 +1,3 @@
 # argocd Helm chart
 
-aaaa
-aaa
-ss
-d
-s
-d
-s
-s
-s
-s
-d
-q
-sss
-sss
+<https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd>
