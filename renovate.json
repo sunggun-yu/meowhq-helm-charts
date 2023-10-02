@@ -1,9 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
-  "packages": [
+  "baseBranch": "main",
+  "packageRules": [
     {
-      "fileMatch": ["^charts/[^/]+/Chart\\.ya?ml$"]
+      "matchFile": "^charts/[^/]+/Chart\\.ya?ml$"
     }
   ]
 }
