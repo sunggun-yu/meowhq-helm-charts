@@ -1,5 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "commitMessageTopic": "helm chart {{depName}}",
-  "fileMatch": ["(^|/)Chart\\.ya?ml$"]
+  "fileMatch": ["^charts/[^/]+/Chart\\.ya?ml$"]
 }
