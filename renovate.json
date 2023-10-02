@@ -8,6 +8,7 @@
     {
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
+      "extends": [":semanticCommitTypeAll(feat)"],
       "stabilityDays": 7,
       "enabled": true
     },
