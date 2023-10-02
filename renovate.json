@@ -1,5 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "helmv3": {
+    "fileMatch": ["^charts/[^/]+/Chart\\.ya?ml$"]
+  },
   "enabledManagers": ["helmv3", "github-actions"],
   "registryAliases": {
     "stable": "https://charts.helm.sh/stable",
