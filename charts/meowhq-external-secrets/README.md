@@ -1,18 +1,3 @@
 # external-secrets helm chart
 
-some comments1
-something
-something else
-omg
-
-omg2
-
-aaaa
-
-a
-s
-a
-s
-a
-aaa
-a
+<https://github.com/external-secrets/external-secrets/tree/main/deploy/charts/external-secrets>

@@ -1,7 +1,5 @@
 # Vault
 
-TODO: remove me later 2 2 2 3 dd s s s er ee s ddd
-
 ## Enable K8s Auth
 
 > ref: <https://learn.hashicorp.com/tutorials/vault/kubernetes-sidecar?in=vault/kubernetes>

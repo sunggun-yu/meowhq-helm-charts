@@ -2,7 +2,9 @@
 
 This repository serves as a collection of Helm Charts designed for Meowhq clusters. In addition, it aims to showcase the following requirements and solutions:
 
-## Requirements:
+> meowhq is name of my home lab cluster 😉
+
+## Requirements
 
 1. **Manage all Helm Charts in a Monorepo:** Consolidate all Helm Charts within a single GitHub repository.
 
@@ -14,7 +16,7 @@ This repository serves as a collection of Helm Charts designed for Meowhq cluste
 
 5. **Utilize Community Charts Efficiently:** Avoid reinventing the wheel; utilize existing community charts, customize them by adding required resources, setting default values, and using container images from proxy cache repositories like Harbor when necessary.
 
-## Solution:
+## Solution
 
 ### Manage all the Helm Charts in Monorepo
 
