@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.8](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-argocd-v0.3.7...meowhq-argocd-v0.3.8) (2023-10-02)
+
+
+### Bug Fixes
+
+* test ([#42](https://github.com/sunggun-yu/meowhq-helm-charts/issues/42)) ([403255e](https://github.com/sunggun-yu/meowhq-helm-charts/commit/403255e24e0cb43e5def2f972cb1bcda086a35b7))
+
 ## [0.3.7](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-argocd-v0.3.6...meowhq-argocd-v0.3.7) (2023-10-01)
 
 
