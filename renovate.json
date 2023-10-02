@@ -1,13 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "commitMessageTopic": "helm chart {{depName}}",
-  "regexManagers": [
+  "extends": ["config:base"],
+  "packages": [
     {
-      "description": "Update Helm dependency",
-      "fileMatch": ["^charts/[^/]+/Chart\\.ya?ml$"],
-      "datasourceTemplate": "helm",
-      "depNameTemplate": "renovate",
-      "lookupNameTemplate": "docker.io/renovate/renovate"
+      "fileMatch": ["^charts/[^/]+/Chart\\.ya?ml$"]
     }
   ]
 }
