@@ -1,4 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabledManagers": ["helmv3", "github-actions"]
+  "enabledManagers": ["helmv3", "github-actions"],
+  "registryAliases": {
+    "stable": "https://charts.helm.sh/stable",
+    "argo-helm": "https://argoproj.github.io/argo-helm",
+    "vault": "https://helm.releases.hashicorp.com",
+    "external-secrets": "https://charts.external-secrets.io"
+  }
 }
