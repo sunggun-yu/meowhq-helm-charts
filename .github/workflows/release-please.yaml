@@ -40,7 +40,7 @@ jobs:
       charts: ${{ steps.get-bumped-charts.outputs.charts }}
       result: ${{ steps.get-bumped-charts.outputs.result }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2 # to be able to obtain files changed in the latest commit
       - id: get-bumped-charts
@@ -102,7 +102,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v3
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Publish Charts to repository
         id: push-charts-repository
@@ -161,7 +161,7 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Checkout Repository
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
