@@ -1,10 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "baseBranch": "main",
-  "packageRules": [
-    {
-      "matchFile": "^charts/[^/]+/Chart\\.ya?ml$"
-    }
-  ]
+  "enabledManagers": ["helmv3", "github-actions"]
 }
