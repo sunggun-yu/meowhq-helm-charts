@@ -23,13 +23,23 @@ jobs:
         with:
           release-type: helm
           token: ${{ steps.create_github_app_token.outputs.token }}
-          command: manifest-pr
+          command: manifest
           monorepo-tags: true
 
       - id: check-changes
         name: test
         run: |
-          echo "release output: ${{ steps.release.outputs }}"
+          echo "releases created: ${{ steps.release.outputs.releases_created }}"
+          echo "upload_url: ${{ steps.release.outputs.upload_url }}"
+          echo "html_url: ${{ steps.release.outputs.html_url }}"
+          echo "tag_name: ${{ steps.release.outputs.tag_name }}"
+          echo "major: ${{ steps.release.outputs.major }}"
+          echo "minor: ${{ steps.release.outputs.minor }}"
+          echo "patch: ${{ steps.release.outputs.patch }}"
+          echo "sha: ${{ steps.release.outputs.sha }}"
+          echo "pr: ${{ steps.release.outputs.pr }}"
+          echo "prs: ${{ steps.release.outputs.prs }}"
+
 
   get-bumped-charts:
     runs-on: ubuntu-latest
