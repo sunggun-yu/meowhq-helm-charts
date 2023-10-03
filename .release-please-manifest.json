@@ -1,5 +1,5 @@
 {
   "charts/meowhq-argocd": "0.3.9",
-  "charts/meowhq-external-secrets": "0.2.0",
+  "charts/meowhq-external-secrets": "0.2.1",
   "charts/meowhq-vault": "0.3.8"
 }
