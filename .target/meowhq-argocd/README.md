@@ -1,8 +1,0 @@
-# argocd Helm chart
-
-aaaa
-aaa
-ss
-d
-s
-d
