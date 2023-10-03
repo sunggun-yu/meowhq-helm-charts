@@ -22,11 +22,12 @@ jobs:
       - id: release
         uses: google-github-actions/release-please-action@v3
         with:
+          default-branch: ${{ github.base_ref }}
           release-type: helm
           token: ${{ steps.create_github_app_token.outputs.token }}
           command: manifest
           monorepo-tags: true
-          # prerelease: true
+          prerelease: true
           versioning-strategy: prerelease
 
   # get-bumped-charts:
