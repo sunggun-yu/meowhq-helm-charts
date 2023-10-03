@@ -25,6 +25,7 @@ jobs:
           token: ${{ steps.create_github_app_token.outputs.token }}
           command: manifest
           monorepo-tags: true
+          prerelease: true
 
       - id: check-changes
         name: test
