@@ -1,0 +1,9 @@
+apiVersion: v2
+dependencies:
+- name: vault
+  repository: https://helm.releases.hashicorp.com
+  version: 0.25.0
+description: A Helm chart for vault
+name: meowhq-vault
+type: application
+version: 0.3.0

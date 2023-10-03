@@ -1,0 +1,9 @@
+apiVersion: v2
+dependencies:
+- name: argo-cd
+  repository: https://argoproj.github.io/argo-helm
+  version: 5.46.7
+description: A Helm chart for argocd
+name: meowhq-argocd
+type: application
+version: 0.3.0
