@@ -29,7 +29,7 @@ jobs:
       - id: check-changes
         name: test
         run: |
-          echo "releases created: ${{ steps.release.outputs.releases_created }}"
+          echo "release output: ${{ steps.release.outputs }}"
 
   get-bumped-charts:
     runs-on: ubuntu-latest
