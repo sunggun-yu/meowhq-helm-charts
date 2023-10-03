@@ -23,7 +23,7 @@ jobs:
         with:
           release-type: helm
           token: ${{ steps.create_github_app_token.outputs.token }}
-          command: manifest
+          command: manifest-pr
           monorepo-tags: true
 
       - id: check-changes
