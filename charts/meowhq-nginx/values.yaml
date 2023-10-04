@@ -6,4 +6,4 @@ nginx:
   image:
     # repository: bitnami/nginx
     # tag: 1.25.2-debian-11-r37
-    tag: 1.25.2-debian-11-r42
+    tag: 1.25.2-debian-11-r40
