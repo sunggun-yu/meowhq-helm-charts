@@ -5,6 +5,7 @@
   "packages": {
     "charts/meowhq-argocd": {},
     "charts/meowhq-external-secrets": {},
-    "charts/meowhq-vault": {}
+    "charts/meowhq-vault": {},
+    "charts/meowhq-nginx": {}
   }
 }
