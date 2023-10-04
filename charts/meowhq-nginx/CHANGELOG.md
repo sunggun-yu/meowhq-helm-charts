@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.0.1...meowhq-nginx-v1.0.2) (2023-10-04)
+
+
+### Bug Fixes
+
+* **nginx:** update image tag ([64d30d0](https://github.com/sunggun-yu/meowhq-helm-charts/commit/64d30d0970a9f75c671676fef66b2f531c635727))
+
 ## [1.0.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.0.0...meowhq-nginx-v1.0.1) (2023-10-04)
 
 
