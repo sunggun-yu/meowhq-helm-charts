@@ -12,6 +12,8 @@ env:
 jobs:
   onboarding:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - id: create_github_app_token
         name: Create github token of Github Application
