@@ -1,10 +1,10 @@
 # Helm Charts for Meowhq K8s Clusters
 
-This repository serves as a collection of Helm Charts designed for Meowhq clusters. In addition, it aims to showcase the following requirements and solutions:
+This repository serves as a collection of Helm Charts designed for Meowhq clusters. In addition, it aims to showcase the following goals and solutions:
 
 > meowhq is name of my home lab cluster 😉
 
-## Requirements
+## Goals
 
 1. **Manage all Helm Charts in a Monorepo:** Consolidate all Helm Charts within a single GitHub repository.
 2. **Automate Helm Chart Versioning:** Automate the versioning of Helm Charts when changes are pushed to the main branch.
