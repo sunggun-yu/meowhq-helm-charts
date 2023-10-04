@@ -1,6 +1,5 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "skip-github-release": true,
   "separate-pull-requests": true,
   "bootstrap-sha": "684ff4d7190c46690ac4541847f839a4822cfd45",
   "release-type": "helm",
