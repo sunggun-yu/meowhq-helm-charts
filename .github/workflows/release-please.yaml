@@ -109,8 +109,8 @@ jobs:
           helm plugin install https://github.com/chartmuseum/helm-push
 
           version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
-          helm cm-push \
           for dir in ${version_changed_charts}; do
+            helm cm-push \
               --username ${{ secrets.HELM_REPO_USERNAME }} \
               --password ${{ secrets.HELM_REPO_PASSWORD }} \
               $dir \
