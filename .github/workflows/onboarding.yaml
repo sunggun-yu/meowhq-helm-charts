@@ -1,0 +1,97 @@
+name: onboarding
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "charts/**"
+env:
+  GIT_USER_NAME: ${{github.triggering_actor}}
+  GIT_USER_EMAIL: "${{github.triggering_actor}}@users.noreply.github.com"
+  RELEASE_PLEASE_CONFIG_FILE: "release-please-config.json"
+jobs:
+  onboarding:
+    runs-on: ubuntu-latest
+    steps:
+      - id: create_github_app_token
+        name: Create github token of Github Application
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - uses: actions/checkout@v4
+      - id: onboarding
+        name: "Onboard new charts"
+        run: |
+          charts_dir="charts"
+          release_please_config_file="$RELEASE_PLEASE_CONFIG_FILE"
+          tmp_json_file=$(mktemp)
+          
+          # Check if release_please_config_file exists
+          if [ ! -f "$release_please_config_file" ]; then
+            echo "Error: $release_please_config_file not found."
+            exit 1
+          fi
+          
+          # Create a temporary JSON file as a copy of the release_please_config_file
+          cp "$release_please_config_file" "$tmp_json_file"
+          
+          # Iterate through subdirectories in charts_dir
+          for sub_dir in "$charts_dir"/*; do
+            # Check if sub_dir is a directory
+            if [ -d "$sub_dir" ]; then
+              chart_yaml="$sub_dir/Chart.yaml"
+              chart_yml="$sub_dir/Chart.yml"
+          
+              # Check if either Chart.yaml or Chart.yml exists and is non-empty
+              if [ -s "$chart_yaml" ] || [ -s "$chart_yml" ]; then
+                # Use jq to update the JSON file
+                jq --arg sub_dir "$sub_dir" '.packages |= if has($sub_dir) then . else . + {($sub_dir): {}} end' "$tmp_json_file" > "$tmp_json_file.tmp"
+                mv "$tmp_json_file.tmp" "$tmp_json_file"
+              else
+                echo "$sub_dir has no Chart.yaml/Chart.yml file or it is empty. it will be ignored"
+              fi
+            fi
+          done
+          
+          # you should do diff to check changes. diff with jq. it returns true | false
+          has_changes=$(jq -s '.[0].packages as $base | .[1].packages as $updated | ($base == $updated) | not' "$release_please_config_file" "$tmp_json_file")
+          
+          # Set GITHUB_OUTPUT
+          echo "has_new_charts=$has_changes" >>$GITHUB_OUTPUT
+
+          # Check if there are differences
+          if [ true == $has_changes ]; then
+            # There are differences; perform your actions here
+            echo "New charts detected. updating $release_please_config_file ..."
+            mv $tmp_json_file $release_please_config_file
+          else
+            echo "No new charts detected."
+            rm $tmp_json_file
+          fi
+          
+          # Output the updated JSON file
+          cat "$release_please_config_file"
+
+      - name: Set git identity
+        if: ${{ steps.onboarding.outputs.has_new_charts == 'true' }}
+        run: |
+          git config user.name $GIT_USER_NAME
+          git config user.email $GIT_USER_EMAIL
+
+      - name: Commit the changes
+        if: ${{ steps.onboarding.outputs.has_new_charts == 'true' }}
+        run: |
+          git add $RELEASE_PLEASE_CONFIG_FILE
+          git commit --allow-empty  -m "chore: update release-please config
+
+          Adding new chart directories
+          - actor: ${{github.triggering_actor}}
+          - workflow name: ${{github.workflow}}
+          - workflow branch: ${{github.ref_name}}
+          "
+
+      - name: Push the changes to base branch
+        if: ${{ steps.onboarding.outputs.has_new_charts == 'true' }}
+        run: |
+          git push origin ${{github.ref_name}}
