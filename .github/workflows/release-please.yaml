@@ -113,6 +113,7 @@ jobs:
             helm cm-push \
               --username ${{ secrets.HELM_REPO_USERNAME }} \
               --password ${{ secrets.HELM_REPO_PASSWORD }} \
+              --dependency-update \
               $dir \
               https://chartmuseum.lab.meowhq.dev
           done
