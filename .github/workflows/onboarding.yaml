@@ -10,6 +10,9 @@ on:
       - main
     paths:
       - "charts/**"
+    types:
+      - opened
+      - synchronize
 
 env:
   GIT_USER_NAME: ${{github.triggering_actor}}
@@ -28,6 +31,8 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - id: onboarding
         name: "Onboard new charts"
         run: |
