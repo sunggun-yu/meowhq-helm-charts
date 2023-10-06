@@ -2,7 +2,9 @@
 
 charts_dir="charts"
 release_please_config_file="release-please-config.json"
-tmp_json_file=$(mktemp)
+release_please_manifest_file=".release-please-manifest.json"
+tmp_config_file=$(mktemp)
+tmp_manifest_file=$(mktemp)
 
 # Check if release_please_config_file exists
 if [ ! -f "$release_please_config_file" ]; then
@@ -10,8 +12,9 @@ if [ ! -f "$release_please_config_file" ]; then
   exit 1
 fi
 
-# Create a temporary JSON file as a copy of the release_please_config_file
-cp "$release_please_config_file" "$tmp_json_file"
+# Create a temporary JSON file as a copy of the release_please_config_file and release_please_manifest_file
+cp "$release_please_config_file" "$tmp_config_file"
+cp "$release_please_manifest_file" "$tmp_manifest_file"
 
 # Iterate through subdirectories in charts_dir
 for sub_dir in "$charts_dir"/*; do
@@ -23,8 +26,12 @@ for sub_dir in "$charts_dir"/*; do
     # Check if either Chart.yaml or Chart.yml exists and is non-empty
     if [ -s "$chart_yaml" ] || [ -s "$chart_yml" ]; then
       # Use jq to update the JSON file
-      jq --arg sub_dir "$sub_dir" '.packages |= if has($sub_dir) then . else . + {($sub_dir): {}} end' "$tmp_json_file" > "$tmp_json_file.tmp"
-      mv "$tmp_json_file.tmp" "$tmp_json_file"
+      jq --arg sub_dir "$sub_dir" '.packages |= if has($sub_dir) then . else . + {($sub_dir): {}} end' "$tmp_config_file" > "$tmp_config_file.tmp"
+      mv "$tmp_config_file.tmp" "$tmp_config_file"
+      
+      # set inititial version in manifest as 0.0.0 to get bumped by release-please on initial workflow
+      jq --arg sub_dir "$sub_dir" '. |= if has($sub_dir) then . else . + {($sub_dir): "0.0.0"} end' "$tmp_manifest_file" > "$tmp_manifest_file.tmp"
+      mv "$tmp_manifest_file.tmp" "$tmp_manifest_file"
     else
       echo "$sub_dir has no Chart.yaml/Chart.yml file or it is empty. it will be ignored"
     fi
@@ -32,20 +39,23 @@ for sub_dir in "$charts_dir"/*; do
 done
 
 # you should do diff to check changes. diff with jq. it returns true | false
-has_changes=$(jq -s '.[0].packages as $base | .[1].packages as $updated | ($base == $updated) | not' "$release_please_config_file" "$tmp_json_file")
+has_changes=$(jq -s '.[0].packages as $base | .[1].packages as $updated | ($base == $updated) | not' "$release_please_config_file" "$tmp_config_file")
 
 # Check if there are differences
 if [ true == $has_changes ]; then
   # There are differences; perform your actions here
   echo "New charts detected. updating $release_please_config_file ..."
-  mv $tmp_json_file $release_please_config_file
+  mv $tmp_config_file $release_please_config_file
+  mv $tmp_manifest_file $release_please_manifest_file
 else
   echo "No new charts detected."
-  rm $tmp_json_file
+  rm $tmp_config_file || true
+  rm $tmp_manifest_file || true
 fi
 
 # Output the updated JSON file
 cat "$release_please_config_file"
+cat "$release_please_manifest_file"
 
 if [ -z $GITHUB_OUTPUT ]; then
 GITHUB_OUTPUT=$(mktemp)
