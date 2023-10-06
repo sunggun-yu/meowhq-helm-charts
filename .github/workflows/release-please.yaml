@@ -7,6 +7,8 @@ on:
       - "charts/**"
   workflow_run:
     workflows: ["onboarding"]
+    branches:
+      - main
     types:
       - completed
 
