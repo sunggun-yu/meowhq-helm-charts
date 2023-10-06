@@ -97,7 +97,7 @@ jobs:
           - actor: ${{github.triggering_actor}}
           - type: auto commit
           - workflow name: ${{github.workflow}}
-          - workflow branch: ${{github.head_ref}} / ${{github.ref_name}}
+          - workflow branch: ${{github.head_ref}}(${{github.ref_name}})
           "
 
       - name: Push the changes to base branch
