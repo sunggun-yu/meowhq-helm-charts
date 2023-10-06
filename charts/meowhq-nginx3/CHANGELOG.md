@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 (2023-10-06)
+
+
+### Features
+
+* nginx3 ([#94](https://github.com/sunggun-yu/meowhq-helm-charts/issues/94)) ([9ab663b](https://github.com/sunggun-yu/meowhq-helm-charts/commit/9ab663bd1538ff2ae191cb7f6a3311279de95c95))
+
 ## 1.0.0 (2023-10-04)
 
 
