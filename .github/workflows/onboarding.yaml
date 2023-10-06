@@ -10,9 +10,12 @@ on:
       - main
     paths:
       - "charts/**"
+    types:
+      - opened
+      - synchronize
 
 env:
-  GIT_USER_NAME: ${{github.triggering_actor}}
+  GIT_USER_NAME: ${{github.triggering_actor}}[auto commit]
   GIT_USER_EMAIL: "${{github.triggering_actor}}@users.noreply.github.com"
   RELEASE_PLEASE_CONFIG_FILE: "release-please-config.json"
 jobs:
@@ -28,6 +31,8 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - id: onboarding
         name: "Onboard new charts"
         run: |
@@ -102,4 +107,5 @@ jobs:
       - name: Push the changes to base branch
         if: ${{ steps.onboarding.outputs.has_new_charts == 'true' }}
         run: |
-          git push origin ${{github.ref_name}}
+          git status
+          git push origin ${{github.head_ref}}
