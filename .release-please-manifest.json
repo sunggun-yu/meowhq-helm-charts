@@ -4,5 +4,6 @@
   "charts/meowhq-vault": "0.3.8",
   "charts/meowhq-nginx": "1.2.0",
   "charts/meowhq-nginx2": "1.0.0",
-  "charts/meowhq-nginx3": "1.0.0"
+  "charts/meowhq-nginx3": "1.0.0",
+  "charts/meowhq-nginx4": "1.0.0"
 }
