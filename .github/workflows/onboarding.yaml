@@ -102,4 +102,4 @@ jobs:
       - name: Push the changes to base branch
         if: ${{ steps.onboarding.outputs.has_new_charts == 'true' }}
         run: |
-          git push origin ${{github.ref_name}}
+          git push origin ${{github.head_ref}}
