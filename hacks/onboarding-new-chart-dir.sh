@@ -5,6 +5,7 @@ release_please_config_file="release-please-config.json"
 release_please_manifest_file=".release-please-manifest.json"
 tmp_config_file=$(mktemp)
 tmp_manifest_file=$(mktemp)
+onboarding_chart_version="0.0.0"
 has_changes=false
 
 # Check if release_please_config_file exists
@@ -30,17 +31,20 @@ for sub_dir in "$charts_dir"/*; do
         jq --arg sub_dir "$sub_dir" '.packages |= . + {($sub_dir): {}}' "$release_please_config_file" > "$tmp_config_file"
         mv "$tmp_config_file" "$release_please_config_file"
 
-        # set inititial version in manifest with version in Chart.yaml file
-        current_chart_version=$(yq e ".version" $chart_file)
+        # set inititial version as 0.0.0 in release-please manifest to get bumped to 1.0.0 in release-please workflow
         jq --arg sub_dir "$sub_dir" \
-          --arg chart_version "$current_chart_version" \
+          --arg chart_version "$onboarding_chart_version" \
           '. |= if has($sub_dir) then . else . + {($sub_dir): ($chart_version)} end' \
           "$release_please_manifest_file" > "$tmp_manifest_file"
         mv "$tmp_manifest_file" "$release_please_manifest_file"
 
-        # also update name of chart in Chart.yaml file
+        # update name of chart in Chart.yaml file with directory name of chart
         chart_name=$(basename $sub_dir)
         yq e ".name = \"$chart_name\"" $chart_file -i
+
+        # set inititial version as Chart version
+        yq e ".version = \"$onboarding_chart_version\"" $chart_file -i
+        cat $chart_file
 
         # set has_changes true
         has_changes=true
