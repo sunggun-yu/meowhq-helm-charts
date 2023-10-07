@@ -61,10 +61,12 @@ jobs:
           version_changed_charts=()
 
           for chart in $chart_file_changed; do
-            # Check if there's a version change in the Chart.yaml file
-            if git show "$chart" | grep -q "+version"; then
-              version_changed_charts+=("$chart")
-            fi
+            # >> not working for new charts 
+            # # Check if there's a version change in the Chart.yaml file
+            # if git show "$chart" | grep -q "+version"; then
+            #   version_changed_charts+=("$chart")
+            # fi
+            version_changed_charts+=("$chart")
           done
           
           # make the outputs
@@ -78,6 +80,7 @@ jobs:
 
           # print the outputs
           cat $GITHUB_OUTPUT
+
       - id: show-warning
         name: 'Show Warning'
         if: ${{ steps.get-bumped-charts.outputs.result == 'fail' }}
