@@ -5,7 +5,7 @@ apiVersion: v2
 name: meowhq-nginx10
 description: A Helm chart for nginx
 type: application
-version: 1.0.0
+version: 1.0.1
 dependencies:
   - name: nginx
     version: 15.3.1
