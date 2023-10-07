@@ -2,7 +2,7 @@
 # nginx helm chart that wraps the official chart repository
 # ------------------------------------------------------------------------------
 apiVersion: v2
-name: meowhq-nginx5
+name: meowhq-nginx6
 description: A Helm chart for nginx
 type: application
 version: 1.0.0

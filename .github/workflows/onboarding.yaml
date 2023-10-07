@@ -32,10 +32,11 @@ jobs:
         name: "Onboard new charts"
         run: |
           charts_dir="charts"
-          release_please_config_file="$RELEASE_PLEASE_CONFIG_FILE"
+          release_please_config_file="release-please-config.json"
           release_please_manifest_file=".release-please-manifest.json"
           tmp_config_file=$(mktemp)
           tmp_manifest_file=$(mktemp)
+          has_changes=false
           
           # Check if release_please_config_file exists
           if [ ! -f "$release_please_config_file" ]; then
@@ -43,53 +44,45 @@ jobs:
             exit 1
           fi
           
-          # Create a temporary JSON file as a copy of the release_please_config_file and release_please_manifest_file
-          cp "$release_please_config_file" "$tmp_config_file"
-          cp "$release_please_manifest_file" "$tmp_manifest_file"
-          
+          # initialize array to store updated charts
+          updated_charts=()
           # Iterate through subdirectories in charts_dir
           for sub_dir in "$charts_dir"/*; do
             # Check if sub_dir is a directory
             if [ -d "$sub_dir" ]; then
-              chart_yaml="$sub_dir/Chart.yaml"
-              chart_yml="$sub_dir/Chart.yml"
+          
+              # find Chart.yaml/yml for chart
+              chart_file=$(find $sub_dir -maxdepth 1 -type f -name "Chart.yaml" -o -name "Chart.yml")
           
               # Check if either Chart.yaml or Chart.yml exists and is non-empty
-              if [ -s "$chart_yaml" ] || [ -s "$chart_yml" ]; then
-                # Use jq to update the JSON file
-                jq --arg sub_dir "$sub_dir" '.packages |= if has($sub_dir) then . else . + {($sub_dir): {}} end' "$tmp_config_file" > "$tmp_config_file.tmp"
-                mv "$tmp_config_file.tmp" "$tmp_config_file"
-
-                # set inititial version in manifest as 0.0.0 to get bumped by release-please on initial workflow
-                jq --arg sub_dir "$sub_dir" '. |= if has($sub_dir) then . else . + {($sub_dir): "0.0.0"} end' "$tmp_manifest_file" > "$tmp_manifest_file.tmp"
-                mv "$tmp_manifest_file.tmp" "$tmp_manifest_file"
+              if [ -s "$chart_file" ]; then
+                if ! jq -e --arg sub_dir "$sub_dir" '.packages | has($sub_dir)' "$release_please_config_file" >/dev/null; then
+                  # Use jq to update the JSON file
+                  jq --arg sub_dir "$sub_dir" '.packages |= . + {($sub_dir): {}}' "$release_please_config_file" > "$tmp_config_file"
+                  mv "$tmp_config_file" "$release_please_config_file"
+          
+                  # set inititial version in manifest as 0.0.0 to get bumped by release-please on initial workflow
+                  jq --arg sub_dir "$sub_dir" '. |= if has($sub_dir) then . else . + {($sub_dir): "0.0.0"} end' "$release_please_manifest_file" > "$tmp_manifest_file"
+                  mv "$tmp_manifest_file" "$release_please_manifest_file"
+          
+                  # also update name of chart in Chart.yaml file
+                  chart_name=$(basename $sub_dir)
+                  yq e ".name = \"$chart_name\"" $chart_file -i
+          
+                  # set has_changes true
+                  has_changes=true
+                  # add name of chart, which is directory name, into updated_chars array
+                  updated_charts+=($(basename $sub_dir))
+                fi
               else
                 echo "$sub_dir has no Chart.yaml/Chart.yml file or it is empty. it will be ignored"
               fi
             fi
           done
           
-          # you should do diff to check changes. diff with jq. it returns true | false
-          has_changes=$(jq -s '.[0].packages as $base | .[1].packages as $updated | ($base == $updated) | not' "$release_please_config_file" "$tmp_config_file")
-          
           # Set GITHUB_OUTPUT
           echo "has_new_charts=$has_changes" >>$GITHUB_OUTPUT
-
-          # Check if there are differences
-          if [ true == $has_changes ]; then
-            # There are differences; perform your actions here
-            echo "New charts detected. updating $release_please_config_file ..."
-            mv $tmp_config_file $release_please_config_file
-            mv $tmp_manifest_file $release_please_manifest_file
-          else
-            echo "No new charts detected."
-            rm $tmp_config_file
-            rm $tmp_manifest_file || true
-          fi
-          
-          # Output the updated JSON file
-          cat "$release_please_config_file"
-          cat "$release_please_manifest_file"
+          echo "updated_charts=${updated_chars[@]}" >>$GITHUB_OUTPUT
 
       - name: Set git identity
         if: ${{ steps.onboarding.outputs.has_new_charts == 'true' }}
@@ -104,6 +97,7 @@ jobs:
           git commit --allow-empty  -m "chore: update release-please config
 
           Adding new chart directories
+          - updated charts: ${{ steps.onboarding.outputs.updated_charts }}
           - actor: ${{github.triggering_actor}}
           - type: auto commit
           - workflow name: ${{github.workflow}}
