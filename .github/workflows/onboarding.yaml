@@ -50,25 +50,26 @@ jobs:
           for sub_dir in "$charts_dir"/*; do
             # Check if sub_dir is a directory
             if [ -d "$sub_dir" ]; then
-          
+
               # find Chart.yaml/yml for chart
               chart_file=$(find $sub_dir -maxdepth 1 -type f -name "Chart.yaml" -o -name "Chart.yml")
-          
+
               # Check if either Chart.yaml or Chart.yml exists and is non-empty
               if [ -s "$chart_file" ]; then
                 if ! jq -e --arg sub_dir "$sub_dir" '.packages | has($sub_dir)' "$release_please_config_file" >/dev/null; then
                   # Use jq to update the JSON file
                   jq --arg sub_dir "$sub_dir" '.packages |= . + {($sub_dir): {}}' "$release_please_config_file" > "$tmp_config_file"
                   mv "$tmp_config_file" "$release_please_config_file"
-          
+
                   # set inititial version in manifest as 0.0.0 to get bumped by release-please on initial workflow
                   jq --arg sub_dir "$sub_dir" '. |= if has($sub_dir) then . else . + {($sub_dir): "0.0.0"} end' "$release_please_manifest_file" > "$tmp_manifest_file"
                   mv "$tmp_manifest_file" "$release_please_manifest_file"
-          
+
                   # also update name of chart in Chart.yaml file
                   chart_name=$(basename $sub_dir)
                   yq e ".name = \"$chart_name\"" $chart_file -i
-          
+                  cat $chart_file
+
                   # set has_changes true
                   has_changes=true
                   # add name of chart, which is directory name, into updated_chars array
@@ -80,6 +81,10 @@ jobs:
             fi
           done
           
+          # Output the updated JSON file
+          cat "$release_please_config_file"
+          cat "$release_please_manifest_file"
+
           # Set GITHUB_OUTPUT
           echo "has_new_charts=$has_changes" >>$GITHUB_OUTPUT
           echo "updated_charts=${updated_chars[@]}" >>$GITHUB_OUTPUT
