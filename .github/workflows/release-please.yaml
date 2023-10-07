@@ -16,8 +16,8 @@ jobs:
         name: Create github token of Github Application
         uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
 
       - id: release
         uses: google-github-actions/release-please-action@v3
@@ -160,8 +160,8 @@ jobs:
         name: Create github token of Github Application
         uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
       - uses: actions/checkout@v4
         name: Checkout Repository
       - name: Run chart-releaser
