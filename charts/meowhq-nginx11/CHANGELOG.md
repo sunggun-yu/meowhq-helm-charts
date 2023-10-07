@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 (2023-10-07)
+
+
+### Features
+
+* add 11 ([#108](https://github.com/sunggun-yu/meowhq-helm-charts/issues/108)) ([ae2121b](https://github.com/sunggun-yu/meowhq-helm-charts/commit/ae2121b03d70b930e876e4a780b6cf01372200a8))
+
 ## [1.0.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx10-v1.0.0...meowhq-nginx10-v1.0.1) (2023-10-07)
 
 
