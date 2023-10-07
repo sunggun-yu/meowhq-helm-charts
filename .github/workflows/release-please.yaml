@@ -49,8 +49,12 @@ jobs:
           files_changed="$(git show --pretty="" --name-only)"
           echo "files_changed=$files_changed"
 
-          # get the directories that includes Chart.yaml file changes to get the charts that changed version
-          chart_file_changed="$(echo $files_changed | grep -E 'Chart\.ya?ml' | xargs dirname | grep -o "charts/[^/]*" | sort | uniq || true)"
+          # ~~get the directories that includes Chart.yaml file changes to get the charts that changed version~~
+          # >> this method is not working for new chart.
+          # chart_file_changed="$(echo $files_changed | grep -E 'Chart\.ya?ml' | xargs dirname | grep -o "charts/[^/]*" | sort | uniq || true)"
+
+          # get the changed directories to publish
+          chart_file_changed="$(echo $files_changed | xargs dirname | grep -o "charts/[^/]*" | sort | uniq || true)"
           echo "chart_file_changed=$chart_file_changed"
 
           # Initialize an empty array for version-changed charts
