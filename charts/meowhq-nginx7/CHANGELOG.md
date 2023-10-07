@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 (2023-10-07)
+
+
+### Features
+
+* adding nginx7 ([#100](https://github.com/sunggun-yu/meowhq-helm-charts/issues/100)) ([81a1d6a](https://github.com/sunggun-yu/meowhq-helm-charts/commit/81a1d6aa86e01d5023b48a2364d704d96581f108))
+
 ## 1.0.0 (2023-10-06)
 
 

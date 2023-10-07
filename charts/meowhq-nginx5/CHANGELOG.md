@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0 (2023-10-07)
+
+
+### Features
+
+* new chart nginx 5 ([#98](https://github.com/sunggun-yu/meowhq-helm-charts/issues/98)) ([1066ae2](https://github.com/sunggun-yu/meowhq-helm-charts/commit/1066ae24dc1f986dd9b55ffb8b8ae64d69b4db57))
+
+
+### Bug Fixes
+
+* **gha:** onboarding ([5ac203b](https://github.com/sunggun-yu/meowhq-helm-charts/commit/5ac203be283ea7bbfa7b69b0f50cf0d806f710d6))
+* **gha:** set init version as 0.0.0 ([2f4b8a9](https://github.com/sunggun-yu/meowhq-helm-charts/commit/2f4b8a93b94d471285b300dd9347520262be82c5))
+
 ## 1.0.0 (2023-10-06)
 
 
