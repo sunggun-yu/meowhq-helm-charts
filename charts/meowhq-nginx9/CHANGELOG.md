@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 (2023-10-07)
+
+
+### Bug Fixes
+
+* adding new chart ([#104](https://github.com/sunggun-yu/meowhq-helm-charts/issues/104)) ([c4df9d3](https://github.com/sunggun-yu/meowhq-helm-charts/commit/c4df9d3c5b16ea0f8fd92c0659d601bdbfc4914d))
+
 ## 1.0.0 (2023-10-06)
 
 
