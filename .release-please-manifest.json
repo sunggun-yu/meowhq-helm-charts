@@ -9,5 +9,6 @@
   "charts/meowhq-nginx5": "1.0.0",
   "charts/meowhq-nginx6": "1.0.0",
   "charts/meowhq-nginx7": "1.0.0",
-  "charts/meowhq-nginx8": "1.0.0"
+  "charts/meowhq-nginx8": "1.0.0",
+  "charts/meowhq-nginx9": "0.0.0"
 }
