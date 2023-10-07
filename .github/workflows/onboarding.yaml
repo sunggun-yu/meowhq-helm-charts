@@ -62,8 +62,12 @@ jobs:
                   jq --arg sub_dir "$sub_dir" '.packages |= . + {($sub_dir): {}}' "$release_please_config_file" > "$tmp_config_file"
                   mv "$tmp_config_file" "$release_please_config_file"
 
-                  # set inititial version in manifest as 0.0.0 to get bumped by release-please on initial workflow
-                  jq --arg sub_dir "$sub_dir" '. |= if has($sub_dir) then . else . + {($sub_dir): "0.0.0"} end' "$release_please_manifest_file" > "$tmp_manifest_file"
+                  # set inititial version in manifest with version in Chart.yaml file
+                  current_chart_version=$(yq e ".version" $chart_file)
+                  jq --arg sub_dir "$sub_dir" \
+                    --arg chart_version "$current_chart_version" \
+                    '. |= if has($sub_dir) then . else . + {($sub_dir): ($chart_version)} end' \
+                    "$release_please_manifest_file" > "$tmp_manifest_file"
                   mv "$tmp_manifest_file" "$release_please_manifest_file"
 
                   # also update name of chart in Chart.yaml file
