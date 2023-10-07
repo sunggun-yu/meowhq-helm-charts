@@ -41,7 +41,7 @@ for sub_dir in "$charts_dir"/*; do
         # set has_changes true
         has_changes=true
         # add name of chart, which is directory name, into updated_chars array
-        updated_charts+=($(basename $sub_dir))
+        updated_charts+=($sub_dir)
       fi
     else
       echo "$sub_dir has no Chart.yaml/Chart.yml file or it is empty. it will be ignored"

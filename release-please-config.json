@@ -9,6 +9,9 @@
     "charts/meowhq-nginx": {},
     "charts/meowhq-nginx2": {},
     "charts/meowhq-nginx3": {},
-    "charts/meowhq-nginx4": {}
+    "charts/meowhq-nginx4": {},
+    "charts/meowhq-nginx5": {},
+    "charts/meowhq-nginx6": {},
+    "charts/meowhq-nginx7": {}
   }
 }
