@@ -2,10 +2,10 @@
 # nginx helm chart that wraps the official chart repository
 # ------------------------------------------------------------------------------
 apiVersion: v2
-name: meowhq-nginx10
+name: meowhq-nginx11
 description: A Helm chart for nginx
 type: application
-version: 1.0.1
+version: 0.0.0
 dependencies:
   - name: nginx
     version: 15.3.1
