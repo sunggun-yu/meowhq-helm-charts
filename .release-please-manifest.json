@@ -2,15 +2,5 @@
   "charts/meowhq-argocd": "0.5.1",
   "charts/meowhq-external-secrets": "0.5.0",
   "charts/meowhq-vault": "0.3.8",
-  "charts/meowhq-nginx": "1.2.0",
-  "charts/meowhq-nginx2": "1.0.0",
-  "charts/meowhq-nginx3": "1.0.0",
-  "charts/meowhq-nginx4": "1.0.0",
-  "charts/meowhq-nginx5": "1.0.0",
-  "charts/meowhq-nginx6": "1.0.0",
-  "charts/meowhq-nginx7": "1.0.0",
-  "charts/meowhq-nginx8": "1.0.0",
-  "charts/meowhq-nginx9": "1.0.0",
-  "charts/meowhq-nginx10": "1.0.1",
-  "charts/meowhq-nginx11": "1.0.0"
+  "charts/meowhq-nginx": "1.2.0"
 }

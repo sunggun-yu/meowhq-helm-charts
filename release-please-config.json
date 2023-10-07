@@ -6,16 +6,6 @@
     "charts/meowhq-argocd": {},
     "charts/meowhq-external-secrets": {},
     "charts/meowhq-vault": {},
-    "charts/meowhq-nginx": {},
-    "charts/meowhq-nginx2": {},
-    "charts/meowhq-nginx3": {},
-    "charts/meowhq-nginx4": {},
-    "charts/meowhq-nginx5": {},
-    "charts/meowhq-nginx6": {},
-    "charts/meowhq-nginx7": {},
-    "charts/meowhq-nginx8": {},
-    "charts/meowhq-nginx9": {},
-    "charts/meowhq-nginx10": {},
-    "charts/meowhq-nginx11": {}
+    "charts/meowhq-nginx": {}
   }
 }

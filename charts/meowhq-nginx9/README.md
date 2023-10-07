@@ -1,3 +1,0 @@
-# nginx helm chart
-
-s
