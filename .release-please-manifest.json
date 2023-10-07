@@ -6,7 +6,7 @@
   "charts/meowhq-nginx2": "1.0.0",
   "charts/meowhq-nginx3": "1.0.0",
   "charts/meowhq-nginx4": "1.0.0",
-  "charts/meowhq-nginx5": "0.0.0",
-  "charts/meowhq-nginx6": "0.0.0",
-  "charts/meowhq-nginx7": "0.0.0"
+  "charts/meowhq-nginx5": "1.0.0",
+  "charts/meowhq-nginx6": "1.0.0",
+  "charts/meowhq-nginx7": "1.0.0"
 }

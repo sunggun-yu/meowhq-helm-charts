@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 (2023-10-07)
+
+
+### Bug Fixes
+
+* **gha:** onboarding ([5ac203b](https://github.com/sunggun-yu/meowhq-helm-charts/commit/5ac203be283ea7bbfa7b69b0f50cf0d806f710d6))
+
 ## 1.0.0 (2023-10-06)
 
 
