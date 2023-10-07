@@ -13,6 +13,7 @@
     "charts/meowhq-nginx5": {},
     "charts/meowhq-nginx6": {},
     "charts/meowhq-nginx7": {},
-    "charts/meowhq-nginx8": {}
+    "charts/meowhq-nginx8": {},
+    "charts/meowhq-nginx9": {}
   }
 }
