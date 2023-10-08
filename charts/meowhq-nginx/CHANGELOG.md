@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.2.0...meowhq-nginx-v1.3.0) (2023-10-08)
+
+
+### Features
+
+* **gha:** init chart lint and test ([#112](https://github.com/sunggun-yu/meowhq-helm-charts/issues/112)) ([d04343b](https://github.com/sunggun-yu/meowhq-helm-charts/commit/d04343b99d2cbf37e0bfc1f4f9809203c4038f7a))
+
+
+### Bug Fixes
+
+* cleanup ([#110](https://github.com/sunggun-yu/meowhq-helm-charts/issues/110)) ([7611990](https://github.com/sunggun-yu/meowhq-helm-charts/commit/76119901226d4a1cb395a831fa76501dd041d4b0))
+
 ## [1.2.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.1.0...meowhq-nginx-v1.2.0) (2023-10-04)
 
 

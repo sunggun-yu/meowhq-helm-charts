@@ -13,3 +13,16 @@ validate-chart-schema: true
 # disable validate-maintainers linter
 validate-maintainers: false
 validate-yaml: true
+chart-repos:
+  - stable=https://charts.helm.sh/stable
+  - bitnami=https://charts.bitnami.com/bitnami
+  - argo-helm=https://argoproj.github.io/argo-helm
+  - kiali=https://kiali.org/helm-charts 
+  - grafana=https://grafana.github.io/helm-charts
+  - jaegertracing=https://jaegertracing.github.io/helm-charts
+  - hashicorp=https://helm.releases.hashicorp.com
+  - external-secrets=https://charts.external-secrets.io
+  - harbor=https://helm.goharbor.io
+  - jetstack=https://charts.jetstack.io
+  - crossplane-stable=https://charts.crossplane.io/stable
+  - chartmuseum=https://chartmuseum.github.io/charts
