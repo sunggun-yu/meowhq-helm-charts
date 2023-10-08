@@ -7,7 +7,6 @@ on:
       - "charts/**"
     types:
       - opened
-      - synchronize
 
 env:
   GIT_USER_NAME: ${{github.triggering_actor}}

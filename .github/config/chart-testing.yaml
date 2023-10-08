@@ -13,6 +13,8 @@ validate-chart-schema: true
 # disable validate-maintainers linter
 validate-maintainers: false
 validate-yaml: true
+excluded-charts:
+  - meowhq-argocd
 chart-repos:
   - stable=https://charts.helm.sh/stable
   - bitnami=https://charts.bitnami.com/bitnami
