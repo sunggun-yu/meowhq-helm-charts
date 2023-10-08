@@ -70,6 +70,9 @@ jobs:
           # cert-manager
           kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
 
+          # external-secrets
+          kubectl apply -f https://github.com/external-secrets/external-secrets/releases/download/v0.9.5/external-secrets.yaml
+
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
         run: ct install --config .github/config/chart-testing.yaml
