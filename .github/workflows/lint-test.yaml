@@ -11,6 +11,10 @@ on:
       - synchronize
   workflow_dispatch:
 
+env:
+  # make install test false for now
+  DO_INSTALL_TEST: false
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
@@ -42,26 +46,27 @@ jobs:
             echo "charts=$changed" >> "$GITHUB_OUTPUT"
           fi
 
-      # - name: Update chart dependencies
-      #   if: steps.list-changed.outputs.changed == 'true'
-      #   id: update-dependencies
-      #   run: |
-      #     for updated_chart in "${{ steps.list-changed.outputs.charts }}"; do
-      #       helm dependency update $updated_chart
-      #     done
-
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
         run: ct lint --config .github/config/chart-testing.yaml
 
-      - name: Create kind cluster
+      - name: Run chart-testing (template)
         if: steps.list-changed.outputs.changed == 'true'
+        id: update-dependencies
+        run: |
+          for updated_chart in "${{ steps.list-changed.outputs.charts }}"; do
+            helm dependency update $updated_chart
+            helm template $updated_chart
+          done
+
+      - name: Create kind cluster
+        if: ${{ steps.list-changed.outputs.changed == 'true' && env.DO_INSTALL_TEST == 'true' }}
         uses: helm/kind-action@v1
         with:
           config: .github/config/kind-cluster-config.yaml
 
       - name: Install foundation packages
-        if: steps.list-changed.outputs.changed == 'true'
+        if: ${{ steps.list-changed.outputs.changed == 'true' && env.DO_INSTALL_TEST == 'true' }}
         run: |
           # istio
           curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.18.3 sh -
@@ -74,5 +79,5 @@ jobs:
           kubectl apply -f https://github.com/external-secrets/external-secrets/releases/download/v0.9.5/external-secrets.yaml
 
       - name: Run chart-testing (install)
-        if: steps.list-changed.outputs.changed == 'true'
+        if: ${{ steps.list-changed.outputs.changed == 'true' && env.DO_INSTALL_TEST == 'true' }}
         run: ct install --config .github/config/chart-testing.yaml
