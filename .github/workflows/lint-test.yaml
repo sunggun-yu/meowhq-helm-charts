@@ -54,7 +54,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         id: update-dependencies
         run: |
-          for updated_chart in "${{ steps.list-changed.outputs.charts }}"; do
+          for updated_chart in ${{ steps.list-changed.outputs.charts }}; do
             helm dependency update $updated_chart
             helm template $updated_chart
           done
