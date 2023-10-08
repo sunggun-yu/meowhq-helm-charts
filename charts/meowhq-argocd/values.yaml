@@ -46,7 +46,7 @@ secretFromExternalSecrets:
 
 # ------------------------------------------------------------------------------
 # values for official argo-cd helm chart which is dependency of this chart
-# as per helm dependency spec, 
+# as per helm dependency spec,
 # all the values of dependency chart must be under the element of chart name, which is `argo-cd` in this case
 # ------------------------------------------------------------------------------
 argo-cd:
