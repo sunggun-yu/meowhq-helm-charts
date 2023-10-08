@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-external-secrets-v0.5.0...meowhq-external-secrets-v0.6.0) (2023-10-08)
+
+
+### Features
+
+* gha ([#115](https://github.com/sunggun-yu/meowhq-helm-charts/issues/115)) ([2145e5a](https://github.com/sunggun-yu/meowhq-helm-charts/commit/2145e5a49ddc4f054db0e69b5cf9c137e81ed56c))
+* test ([#116](https://github.com/sunggun-yu/meowhq-helm-charts/issues/116)) ([4945180](https://github.com/sunggun-yu/meowhq-helm-charts/commit/4945180d86823d3b5afc13a7f8a2f9ccce2c6784))
+
 ## [0.5.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-external-secrets-v0.4.2...meowhq-external-secrets-v0.5.0) (2023-10-04)
 
 
