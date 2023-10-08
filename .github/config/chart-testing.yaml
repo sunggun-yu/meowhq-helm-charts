@@ -1,0 +1,15 @@
+---
+# configuration for the helm chart-testing : <https://github.com/helm/chart-testing>
+chart-dirs:
+  - charts
+# disable check-version-increment cause versioning is being managed by release-please
+check-version-increment: false
+lint-conf: .github/config/lintconf.yaml
+remote: origin
+skip-missing-values: true
+target-branch: main
+upgrade: false
+validate-chart-schema: true
+# disable validate-maintainers linter
+validate-maintainers: false
+validate-yaml: true

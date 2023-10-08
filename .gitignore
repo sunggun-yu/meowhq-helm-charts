@@ -2,3 +2,4 @@
 **/.DS_Store
 **/*.tgz
 .target
+ct_previous_revision*
