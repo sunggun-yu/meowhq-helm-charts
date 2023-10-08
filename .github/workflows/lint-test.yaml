@@ -42,14 +42,13 @@ jobs:
             echo "charts=$changed" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Update chart dependencies
-        if: steps.list-changed.outputs.changed == 'true'
-        id: update-dependencies
-        run: |
-          # for updated_chart in "${{ steps.list-changed.outputs.charts }}"; do
-          #   helm dependency update $updated_chart
-          # done
-          find charts/ ! -path charts/ -maxdepth 1 -type d -exec helm dependency update {} \;
+      # - name: Update chart dependencies
+      #   if: steps.list-changed.outputs.changed == 'true'
+      #   id: update-dependencies
+      #   run: |
+      #     for updated_chart in "${{ steps.list-changed.outputs.charts }}"; do
+      #       helm dependency update $updated_chart
+      #     done
 
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
