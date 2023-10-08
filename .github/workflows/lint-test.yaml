@@ -9,6 +9,9 @@ on:
     types:
       - opened
       - synchronize
+  pull_request_target:
+    branches-ignore:
+      - release-please--branches--*
   workflow_dispatch:
 
 env:
