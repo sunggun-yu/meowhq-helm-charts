@@ -9,9 +9,6 @@ on:
     types:
       - opened
       - synchronize
-  pull_request_target:
-    branches-ignore:
-      - release-please--branches--*
   workflow_dispatch:
 
 env:
@@ -20,6 +17,7 @@ env:
 
 jobs:
   lint-test:
+    if: github.event.pull_request.base.ref != 'release-please--branches--main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
