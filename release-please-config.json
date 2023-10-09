@@ -6,8 +6,6 @@
     "charts/meowhq-argocd": {},
     "charts/meowhq-external-secrets": {},
     "charts/meowhq-vault": {},
-    "charts/meowhq-nginx": {},
-    "charts/meowhq-nginx2": {},
-    "charts/meowhq-nginx3": {}
+    "charts/meowhq-nginx": {}
   }
 }
