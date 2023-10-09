@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.3.0...meowhq-nginx-v1.3.1) (2023-10-09)
+
+
+### Bug Fixes
+
+* cleanup ([46c90ed](https://github.com/sunggun-yu/meowhq-helm-charts/commit/46c90ed5bff036a62d35255b025c5aea0117bb43))
+
 ## [1.3.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.2.0...meowhq-nginx-v1.3.0) (2023-10-08)
 
 
