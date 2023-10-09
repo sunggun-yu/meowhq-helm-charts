@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0 (2023-10-09)
+
+
+### Features
+
+* **gha:** finalize onboarding ([2524952](https://github.com/sunggun-yu/meowhq-helm-charts/commit/252495227973dcb73e474434320f48e8c55e146f))
+* nginx3 ([#94](https://github.com/sunggun-yu/meowhq-helm-charts/issues/94)) ([9ab663b](https://github.com/sunggun-yu/meowhq-helm-charts/commit/9ab663bd1538ff2ae191cb7f6a3311279de95c95))
+
+
+### Bug Fixes
+
+* test ([#121](https://github.com/sunggun-yu/meowhq-helm-charts/issues/121)) ([3169903](https://github.com/sunggun-yu/meowhq-helm-charts/commit/3169903847c644cd185789a440558e98de8e6fa5))
+* test ([#122](https://github.com/sunggun-yu/meowhq-helm-charts/issues/122)) ([0909806](https://github.com/sunggun-yu/meowhq-helm-charts/commit/0909806f7020d8cd893c8719a859d8f757c61e68))
+
 ## [1.3.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.2.0...meowhq-nginx-v1.3.0) (2023-10-08)
 
 
