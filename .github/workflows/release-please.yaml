@@ -101,7 +101,7 @@ jobs:
       - name: Build the package of updated Charts
         id: package-charts
         run: |
-          mkdir -p $PUBLISH_DIR
+          rm -rf $PUBLISH_DIR && mkdir -p $PUBLISH_DIR
           version_changed_charts="${{needs.get-bumped-charts.outputs.charts}}"
           for dir in ${version_changed_charts}; do
             helm package $dir --dependency-update --destination $PUBLISH_DIR
