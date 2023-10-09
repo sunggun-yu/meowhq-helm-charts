@@ -9,21 +9,17 @@ on:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
     steps:
-      - id: create_github_app_token
-        name: Create github token of Github Application
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
-
       - id: release
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: helm
-          token: ${{ steps.create_github_app_token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           command: manifest
           monorepo-tags: true
 
@@ -155,13 +151,8 @@ jobs:
     name: Publish Charts to Github
     permissions:
       contents: write
+      packages: write
     steps:
-      - id: create_github_app_token
-        name: Create github token of Github Application
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
       - uses: actions/checkout@v4
         name: Checkout Repository
       - name: Run chart-releaser
@@ -169,4 +160,4 @@ jobs:
         with:
           charts_dir: charts
         env:
-          CR_TOKEN: ${{ steps.create_github_app_token.outputs.token }}
+          CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
