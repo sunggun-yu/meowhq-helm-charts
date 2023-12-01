@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-argocd-v0.5.2...meowhq-argocd-v0.6.0) (2023-12-01)
+
+
+### Features
+
+* **deps:** update helm release argo-cd to v5.51.4 ([#126](https://github.com/sunggun-yu/meowhq-helm-charts/issues/126)) ([9f5cbe2](https://github.com/sunggun-yu/meowhq-helm-charts/commit/9f5cbe24e3dc5b19d754125c40ccbbcd0ddb5dbc))
+
 ## [0.5.2](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-argocd-v0.5.1...meowhq-argocd-v0.5.2) (2023-10-08)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-external-secrets-v0.6.0...meowhq-external-secrets-v0.7.0) (2023-12-01)
+
+
+### Features
+
+* **deps:** update helm release external-secrets to v0.9.9 ([#127](https://github.com/sunggun-yu/meowhq-helm-charts/issues/127)) ([a78fef9](https://github.com/sunggun-yu/meowhq-helm-charts/commit/a78fef91a9cf615154a7df1f85caa2d91f7e9e25))
+
 ## [0.6.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-external-secrets-v0.5.0...meowhq-external-secrets-v0.6.0) (2023-10-08)
 
 
