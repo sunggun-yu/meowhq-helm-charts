@@ -19,7 +19,7 @@ jobs:
             github.rest.pulls.createReview({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: github.event.number,
+              pull_number: ${{ github.event.number }},
               event: "COMMENT",
               body: "hello"
             })
