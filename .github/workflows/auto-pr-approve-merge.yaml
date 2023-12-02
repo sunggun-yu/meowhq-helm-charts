@@ -12,24 +12,35 @@ jobs:
       pull-requests: write
     if: contains(fromJSON('["dependabot[bot]", "renovate[bot]", "sunggun-bot[bot]"]'), github.actor)
     steps:
+      - id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
       - id: approve
         uses: actions/github-script@v7
         with:
           result-encoding: string
           retries: 3
+          # use PAT for consistency of actor
+          github-token: ${{ steps.app-token.outputs.token }}
           script: |
-            github.rest.pulls.createReview({
+            // approve
+            await github.rest.pulls.createReview({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: ${{ github.event.number }},
               event: "APPROVE",
               body: "auto approved"
             })
-      - id: app-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
+
+            // add auto-appoved label
+            github.rest.issues.addLabels(({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.number }},
+              labels: ["auto-approved"]
+            })
       - id: merge
         uses: actions/github-script@v7
         with:
@@ -38,9 +49,18 @@ jobs:
           # should use PAT to trigger next workflow
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
-            github.rest.pulls.merge({
+            // merge
+            await github.rest.pulls.merge({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: ${{ github.event.number }},
               merge_method: "squash"
+            })
+
+            // add auto-merged label
+            github.rest.issues.addLabels(({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.number }},
+              labels: ["auto-merged"]
             })
