@@ -3,5 +3,5 @@
   "charts/meowhq-external-secrets": "0.7.0",
   "charts/meowhq-vault": "0.4.0",
   "charts/meowhq-nginx": "1.4.0",
-  "charts/meowhq-haproxy": "1.0.2"
+  "charts/meowhq-haproxy": "1.0.3"
 }
