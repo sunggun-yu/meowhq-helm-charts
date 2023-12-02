@@ -1,13 +1,14 @@
-name: auto-pr-approval
+name: Auto PR Approve and Merge
 on:
   pull_request:
     branches:
       - main
 
 jobs:
-  auto-approve:
+  auto-approve-merge:
     runs-on: ubuntu-latest
     permissions:
+      contents: write
       pull-requests: write
     if: contains(fromJSON('["dependabot[bot]", "renovate[bot]", "sunggun-bot[bot]"]'), github.actor)
     steps:
@@ -23,4 +24,16 @@ jobs:
               pull_number: ${{ github.event.number }},
               event: "APPROVE",
               body: "auto approved"
+            })
+      - id: merge
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          retries: 3
+          script: |
+            github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ github.event.number }},
+              merge_method: "squash"
             })
