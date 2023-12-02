@@ -1,0 +1,12 @@
+# ------------------------------------------------------------------------------
+# haproxy helm chart that wraps the official chart repository
+# ------------------------------------------------------------------------------
+apiVersion: v2
+name: meowhq-haproxy
+description: A Helm chart for haproxy
+type: application
+version: 0.0.0
+dependencies:
+  - name: haproxy
+    version: 0.10.5
+    repository: "https://charts.bitnami.com/bitnami"
