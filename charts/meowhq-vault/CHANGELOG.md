@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-vault-v0.3.8...meowhq-vault-v0.4.0) (2023-12-01)
+
+
+### Features
+
+* **deps:** update helm release vault to v0.27.0 ([#128](https://github.com/sunggun-yu/meowhq-helm-charts/issues/128)) ([8f647d8](https://github.com/sunggun-yu/meowhq-helm-charts/commit/8f647d8ca366c17b24c977a7e0966b997908ae6f))
+
 ## [0.3.8](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-vault-v0.3.7...meowhq-vault-v0.3.8) (2023-10-02)
 
 
