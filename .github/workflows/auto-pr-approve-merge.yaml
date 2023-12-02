@@ -25,21 +25,12 @@ jobs:
           # use PAT for consistency of actor
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
-            // approve
-            await github.rest.pulls.createReview({
+            github.rest.pulls.createReview({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: ${{ github.event.number }},
               event: "APPROVE",
               body: "auto approved"
-            })
-
-            // add auto-appoved label
-            github.rest.issues.addLabels(({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ github.event.number }},
-              labels: ["auto-approved"]
             })
       - id: merge
         uses: actions/github-script@v7
@@ -49,18 +40,23 @@ jobs:
           # should use PAT to trigger next workflow
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
-            // merge
-            await github.rest.pulls.merge({
+            github.rest.pulls.merge({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: ${{ github.event.number }},
               merge_method: "squash"
             })
-
-            // add auto-merged label
+      - id: add-labels
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          retries: 3
+          # should use PAT to trigger next workflow
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
             github.rest.issues.addLabels(({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.number }},
-              labels: ["auto-merged"]
+              labels: ["auto-approved","auto-merged"]
             })
