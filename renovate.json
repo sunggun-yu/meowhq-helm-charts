@@ -9,7 +9,7 @@
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
-      "matchUpdateTypes": ["patch", "minor"],
+      "matchUpdateTypes": ["pin"],
       "stabilityDays": 7,
       "enabled": true
     },
