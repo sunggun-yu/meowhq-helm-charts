@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-redis-v1.2.0...meowhq-redis-v1.3.0) (2023-12-03)
+
+
+### Features
+
+* test ([#160](https://github.com/sunggun-yu/meowhq-helm-charts/issues/160)) ([f657dad](https://github.com/sunggun-yu/meowhq-helm-charts/commit/f657dada50a1f619d734e19af1efb1be04af3475))
+
 ## [1.2.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-redis-v1.1.0...meowhq-redis-v1.2.0) (2023-12-03)
 
 
