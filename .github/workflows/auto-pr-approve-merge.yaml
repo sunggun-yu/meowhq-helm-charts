@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  auto-approve-merge:
+  auto-approve:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -25,6 +25,29 @@ jobs:
               event: "APPROVE",
               body: "auto approved"
             })
+      - id: add-label
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          retries: 3
+          script: |
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.number }},
+              labels: ["auto-approved"]
+            })
+
+  auto-merge:
+    runs-on: ubuntu-latest
+    needs: auto-approve
+    permissions:
+      contents: write
+      pull-requests: write
+    if: contains(fromJSON('["dependabot[bot]", "renovate[bot]", "sunggun-bot[bot]"]'), github.actor)
+    steps:
+      # should use PAT to trigger next workflow
+      # also it PR creator and approver should be different
       - id: app-token
         uses: actions/create-github-app-token@v1
         with:
@@ -35,8 +58,6 @@ jobs:
         with:
           result-encoding: string
           retries: 3
-          # should use PAT to trigger next workflow
-          # also it PR creator and approver should be different
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
             github.rest.pulls.merge({
@@ -45,15 +66,16 @@ jobs:
               pull_number: ${{ github.event.number }},
               merge_method: "squash"
             })
-      - id: add-labels
+      - id: add-label
         uses: actions/github-script@v7
         with:
           result-encoding: string
           retries: 3
+          github-token: ${{ steps.app-token.outputs.token }}
           script: |
             github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.number }},
-              labels: ["auto-approved","auto-merged"]
+              labels: ["auto-merged"]
             })
