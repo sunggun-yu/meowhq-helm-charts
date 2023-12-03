@@ -1,3 +1,1 @@
 # redis helm chart
-
-test
