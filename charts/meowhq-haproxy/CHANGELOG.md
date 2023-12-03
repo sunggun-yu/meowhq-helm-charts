@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-haproxy-v1.0.5...meowhq-haproxy-v1.0.6) (2023-12-03)
+
+
+### Bug Fixes
+
+* test ([#144](https://github.com/sunggun-yu/meowhq-helm-charts/issues/144)) ([5303d77](https://github.com/sunggun-yu/meowhq-helm-charts/commit/5303d777770199074266b6863bd63fd56fed4524))
+
 ## [1.0.5](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-haproxy-v1.0.4...meowhq-haproxy-v1.0.5) (2023-12-02)
 
 
