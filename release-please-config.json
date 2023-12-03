@@ -7,6 +7,7 @@
     "charts/meowhq-external-secrets": {},
     "charts/meowhq-vault": {},
     "charts/meowhq-nginx": {},
-    "charts/meowhq-haproxy": {}
+    "charts/meowhq-haproxy": {},
+    "charts/meowhq-redis": {}
   }
 }
