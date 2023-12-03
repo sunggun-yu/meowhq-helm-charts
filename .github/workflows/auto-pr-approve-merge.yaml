@@ -51,7 +51,7 @@ jobs:
           result-encoding: string
           retries: 3
           script: |
-            github.rest.issues.addLabels(({
+            github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.number }},
