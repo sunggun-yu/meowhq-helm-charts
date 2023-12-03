@@ -5,7 +5,7 @@ apiVersion: v2
 name: meowhq-haproxy
 description: A Helm chart for haproxy
 type: application
-version: 1.0.6
+version: 1.0.7
 dependencies:
   - name: haproxy
     version: 0.10.5
