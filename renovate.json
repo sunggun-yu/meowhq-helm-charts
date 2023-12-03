@@ -4,12 +4,13 @@
   "enabledManagers": ["helmv3", "github-actions"],
   "baseBranches": ["main"],
   "labels": ["renovate"],
-  "rangeStrategy": "pin",
   "packageRules": [
     {
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
+      "rangeStrategy": "pin",
+      "matchUpdateTypes": ["patch", "minor"],
       "stabilityDays": 7,
       "enabled": true
     },
