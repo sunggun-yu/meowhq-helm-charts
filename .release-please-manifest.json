@@ -2,6 +2,6 @@
   "charts/meowhq-argocd": "0.6.0",
   "charts/meowhq-external-secrets": "0.7.0",
   "charts/meowhq-vault": "0.4.0",
-  "charts/meowhq-nginx": "1.4.4",
-  "charts/meowhq-haproxy": "1.0.7"
+  "charts/meowhq-nginx": "1.4.5",
+  "charts/meowhq-haproxy": "1.0.8"
 }
