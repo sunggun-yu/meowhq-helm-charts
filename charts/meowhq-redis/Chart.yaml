@@ -1,0 +1,12 @@
+# ------------------------------------------------------------------------------
+# redis helm chart that wraps the official chart repository
+# ------------------------------------------------------------------------------
+apiVersion: v2
+name: meowhq-redis
+description: A Helm chart for redis
+type: application
+version: 0.0.0
+dependencies:
+  - name: redis
+    version: 16.11.2
+    repository: "https://charts.bitnami.com/bitnami"
