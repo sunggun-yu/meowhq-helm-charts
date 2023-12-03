@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-redis-v1.5.0...meowhq-redis-v1.6.0) (2023-12-03)
+
+
+### Features
+
+* test how chart.lock work with renovate ([#169](https://github.com/sunggun-yu/meowhq-helm-charts/issues/169)) ([d004d3d](https://github.com/sunggun-yu/meowhq-helm-charts/commit/d004d3ddda202b4efcd99577c4c6b6d2b652ce41))
+
 ## [1.5.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-redis-v1.4.1...meowhq-redis-v1.5.0) (2023-12-03)
 
 
