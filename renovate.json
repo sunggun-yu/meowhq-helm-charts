@@ -6,6 +6,7 @@
   "labels": ["renovate"],
   "packageRules": [
     {
+      "path": "charts/**",
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
