@@ -4,11 +4,13 @@
   "enabledManagers": ["helmv3", "github-actions"],
   "baseBranches": ["main"],
   "labels": ["renovate"],
+  "separateMinorPatch": true,
   "packageRules": [
     {
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
+      "matchUpdateTypes": ["patch"],
       "separateMinorPatch": true,
       "stabilityDays": 7,
       "enabled": true
