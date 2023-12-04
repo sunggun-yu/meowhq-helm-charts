@@ -9,13 +9,10 @@
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
-      "rangeStrategy": "bump",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "dependencies",
       "stabilityDays": 7,
       "enabled": true
-    },
-    {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "groupName": "dependencies"
     },
     {
       "matchManagers": ["github-actions"],
