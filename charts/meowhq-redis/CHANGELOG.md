@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-redis-v1.6.1...meowhq-redis-v1.6.2) (2023-12-04)
+
+
+### Bug Fixes
+
+* redis test ([05956db](https://github.com/sunggun-yu/meowhq-helm-charts/commit/05956dba470c933ab8ede98fc29ebd459812675c))
+
 ## [1.6.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-redis-v1.6.0...meowhq-redis-v1.6.1) (2023-12-03)
 
 
