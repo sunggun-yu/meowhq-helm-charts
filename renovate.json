@@ -9,8 +9,8 @@
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "separateMinorPatch": true,
+      "rangeStrategy": "pin",
+      "matchUpdateTypes": ["minor", "patch", "pin"],
       "stabilityDays": 7,
       "enabled": true
     },
