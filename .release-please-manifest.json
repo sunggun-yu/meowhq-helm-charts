@@ -4,5 +4,5 @@
   "charts/meowhq-vault": "0.4.0",
   "charts/meowhq-nginx": "1.5.0",
   "charts/meowhq-haproxy": "1.1.0",
-  "charts/meowhq-redis": "1.8.0"
+  "charts/meowhq-redis": "1.9.0"
 }
