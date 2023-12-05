@@ -10,11 +10,9 @@
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
       "separateMinorPatch": true,
-      "separateMajorMinor": true,
-      "groupName": "devDependencies (non-major)",
-      "groupSlug": "dev-dependencies",
+      "matchUpdateTypes": ["minor"],
       "stabilityDays": 7,
-      "enabled": true
+      "enabled": false
     },
     {
       "matchManagers": ["github-actions"],
