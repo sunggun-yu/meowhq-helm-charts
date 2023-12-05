@@ -14,20 +14,6 @@
       "enabled": true
     },
     {
-      "matchManagers": ["helmv3"],
-      "matchDatasources": ["helm"],
-      "extends": [":semanticCommitTypeAll(feat)"],
-      "matchUpdateTypes": ["minor", "patch", "pin", "bump"],
-      "stabilityDays": 7,
-      "enabled": true
-    },
-    {
-      "matchManagers": ["helmv3"],
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["major"],
-      "enabled": false
-    },
-    {
       "matchManagers": ["github-actions"],
       "stabilityDays": 30,
       "enabled": true
