@@ -10,6 +10,12 @@
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
       "separateMinorPatch": true,
+      "stabilityDays": 7
+    },
+    {
+      "matchManagers": ["helmv3"],
+      "matchDatasources": ["helm"],
+      "extends": [":semanticCommitTypeAll(feat)"],
       "matchUpdateTypes": ["minor"],
       "stabilityDays": 7,
       "enabled": false
