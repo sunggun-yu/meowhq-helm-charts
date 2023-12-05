@@ -8,5 +8,5 @@ type: application
 version: 1.13.0
 dependencies:
   - name: redis
-    version: 17.1.0
+    version: 17.1.8
     repository: "https://charts.bitnami.com/bitnami"
