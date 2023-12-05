@@ -8,16 +8,24 @@
     {
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
-      "extends": [":semanticCommitTypeAll(feat)"],
-      "separateMinorPatch": true,
-      "stabilityDays": 7
+      "matchUpdateTypes": ["patch", "pin"],
+      "enabled": false
     },
     {
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
-      "extends": [":semanticCommitTypeAll(major)"],
+      "extends": [":semanticCommitTypeAll(feat)"],
+      "separateMinorPatch": true,
+      "separateMajorMinor": true,
+      "stabilityDays": 7,
+      "enabled": true
+    },
+    {
+      "matchManagers": ["helmv3"],
+      "matchDatasources": ["helm"],
       "matchUpdateTypes": ["major"],
-      "stabilityDays": 7
+      "stabilityDays": 7,
+      "enabled": false
     },
     {
       "matchManagers": ["github-actions"],
