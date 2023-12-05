@@ -9,8 +9,19 @@
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
-      "separateMinorPatch": true,
-      "separateMajorMinor": true,
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "devDependencies (non-major)",
+      "groupSlug": "dev-dependencies",
+      "stabilityDays": 7,
+      "enabled": true
+    },
+    {
+      "matchManagers": ["helmv3"],
+      "matchDatasources": ["helm"],
+      "extends": [":semanticCommitTypeAll(major)"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "devDependencies (major)",
+      "groupSlug": "major-dependencies",
       "stabilityDays": 7,
       "enabled": true
     },
