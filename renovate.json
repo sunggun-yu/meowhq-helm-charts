@@ -16,8 +16,21 @@
     {
       "matchManagers": ["helmv3"],
       "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["minor"],
+      "extends": [":semanticCommitTypeAll(feat)"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "bump"],
       "stabilityDays": 7,
+      "enabled": true
+    },
+    {
+      "matchManagers": ["helmv3"],
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["minor"],
+      "enabled": false
+    },
+    {
+      "matchManagers": ["helmv3"],
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["major"],
       "enabled": false
     },
     {
