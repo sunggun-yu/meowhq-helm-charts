@@ -10,28 +10,9 @@
       "matchDatasources": ["helm"],
       "extends": [":semanticCommitTypeAll(feat)"],
       "separateMinorPatch": true,
-      "groupName": "devDependencies (patch)",
-      "groupSlug": "dev-dependencies-patch",
-      "stabilityDays": 7,
-      "enabled": true
-    },
-    {
-      "matchManagers": ["helmv3"],
-      "matchDatasources": ["helm"],
-      "extends": [":semanticCommitTypeAll(feat)"],
-      "matchUpdateTypes": ["minor"],
-      "groupName": "devDependencies (minor)",
-      "groupSlug": "dev-dependencies-minor",
-      "stabilityDays": 7,
-      "enabled": true
-    },
-    {
-      "matchManagers": ["helmv3"],
-      "matchDatasources": ["helm"],
-      "extends": [":semanticCommitTypeAll(major)"],
-      "matchUpdateTypes": ["major"],
-      "groupName": "devDependencies (major)",
-      "groupSlug": "dev-dependencies-major",
+      "separateMajorMinor": true,
+      "groupName": "devDependencies (non-major)",
+      "groupSlug": "dev-dependencies",
       "stabilityDays": 7,
       "enabled": true
     },
