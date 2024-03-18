@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.5.0](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-vault-v0.4.0...meowhq-vault-v0.5.0) (2024-03-18)
+
+
+### Features
+
+* **deps:** update helm release vault to v0.27.0 ([#128](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/128)) ([8f647d8](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/8f647d8ca366c17b24c977a7e0966b997908ae6f))
+* gha ([a81bf28](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/a81bf28af79155594db166e79b26f246520d14a2))
+* test ([#12](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/12)) ([6a772d2](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/6a772d2d7da69f7b731375e39cdab7428cace71c))
+* test ([#24](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/24)) ([c355d62](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/c355d6201c03bc475b2776e4827618399854cd65))
+
+
+### Bug Fixes
+
+* aaa ([#20](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/20)) ([c2ab4c1](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/c2ab4c1f27807668b8444225ad5a3125a8a6350c))
+* docs ([#44](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/44)) ([26d2b87](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/26d2b87addd8bbbe9450de3011b71d9c02943919))
+* some doc ([#6](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/6)) ([80dbcfd](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/80dbcfd1e83bf8c1d979bdb68bad64fd74d10586))
+* test ([#10](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/10)) ([b564114](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/b56411496b48aab6808ca73738e765e13d96c3e7))
+* test ([#18](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/18)) ([4ba1875](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/4ba18757920fbf343ac375b5f81b9edb1acaab3d))
+* test ([#28](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/28)) ([80df60c](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/80df60cd278860834bf94a366b68f19fb6b15423))
+* test ([#30](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/30)) ([e90605b](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/e90605b2c01c975804421642a5ce0cd3420c22ac))
+* test ([#32](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/32)) ([f07a20f](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/f07a20f23b3795556adffbbbabf21ef39ebf7af5))
+* test ([#34](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/34)) ([7550806](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/7550806bca8b9248cf33d806e98894f3b3760448))
+* test ([#36](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/36)) ([79e05a2](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/79e05a206607fa9903f9faa15ecce8d20bfe83c1))
+* test ([#40](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/40)) ([1f48efd](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/1f48efd0892f601ef861084c68ddb6ae45d59fbb))
+* test ([#42](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/42)) ([403255e](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/403255e24e0cb43e5def2f972cb1bcda086a35b7))
+
 ## [0.4.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-vault-v0.3.8...meowhq-vault-v0.4.0) (2023-12-01)
 
 
