@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-haproxy-v1.2.0...meowhq-haproxy-v1.2.1) (2024-03-18)
+
+
+### Bug Fixes
+
+* dx-112: added new value ([15ae3c1](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/15ae3c1ff9dcfb7824e91330b8efdd3fd99cd9f2))
+
 ## [1.2.0](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-haproxy-v1.1.0...meowhq-haproxy-v1.2.0) (2024-03-18)
 
 
