@@ -5,7 +5,7 @@ apiVersion: v2
 name: meowhq-redis
 description: A Helm chart for redis
 type: application
-version: 1.19.0
+version: 1.19.1
 dependencies:
   - name: redis
     version: 17.5.1
