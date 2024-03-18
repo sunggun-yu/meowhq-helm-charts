@@ -18,6 +18,9 @@ jobs:
       # PR should not be triggered by repository's token to trigger GHA for auto approval
       # so, use github apps token instead of repository token
       # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow
+      - shell: bash
+        run: |
+          env | sort
       - id: app-token
         uses: actions/create-github-app-token@v1
         with:
