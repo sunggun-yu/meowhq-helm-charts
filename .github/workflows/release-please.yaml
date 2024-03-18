@@ -24,6 +24,7 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PK }}
           owner: ${{ github.repository_owner }}
+          repositories: "meowhq-helm-charts"
       - id: release
         uses: google-github-actions/release-please-action@v4
         with:
