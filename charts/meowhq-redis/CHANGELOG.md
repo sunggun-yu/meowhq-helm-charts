@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.0](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-redis-v1.18.1...meowhq-redis-v1.19.0) (2024-03-18)
+
+
+### Features
+
+* dx-117: added new value ([2e739f7](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/2e739f72698067b11e6ca5ae00aa611a5d7ad31d))
+
 ## [1.18.1](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-redis-v1.18.0...meowhq-redis-v1.18.1) (2024-03-18)
 
 
