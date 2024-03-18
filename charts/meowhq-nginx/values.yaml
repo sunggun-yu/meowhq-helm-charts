@@ -9,4 +9,4 @@ nginx:
     tag: 1.25.2-debian-11-r40
   service:
     type: ClusterIP
-  test: aaa
+  test: aaa2
