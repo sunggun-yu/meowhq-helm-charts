@@ -10,3 +10,4 @@ dependencies:
   - name: haproxy
     version: 0.10.5
     repository: "https://charts.bitnami.com/bitnami"
+
