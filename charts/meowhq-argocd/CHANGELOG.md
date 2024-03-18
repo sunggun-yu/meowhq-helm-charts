@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-argocd-v0.8.0...meowhq-argocd-v0.8.1) (2024-03-18)
+
+
+### Bug Fixes
+
+* dx-211: added new value ([#9](https://github.com/apentsak-vitech/meowhq-helm-charts/issues/9)) ([c27a87f](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/c27a87fb84fac4a84e555de95463d98d81056310))
+
 ## [0.8.0](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-argocd-v0.7.0...meowhq-argocd-v0.8.0) (2024-03-18)
 
 
