@@ -2,6 +2,8 @@ istio:
   host: vault.lab.meowhq.dev
   credentialName: wildcard-lab-meowhq-dev-tls
 
+pu: poo
+
 vault:
   # Available parameters and their default values for the Vault chart.
 
