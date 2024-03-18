@@ -10,6 +10,7 @@ istio:
   virtualService:
     host: argocd.lab.meowhq.dev
 
+
 podSecurityPoliciesEnabled: false
 
 # create ArgoCD secrets with external-secrets
