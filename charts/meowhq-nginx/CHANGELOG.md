@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.0](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-nginx-v1.6.0...meowhq-nginx-v1.7.0) (2024-03-18)
+
+
+### Features
+
+* dx-114: added new value ([0a58bc8](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/0a58bc8b0972184e8f5dc7908719441182fabcd2))
+* dx-116: added new value ([0cd6307](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/0cd6307c7af308da9b1058901aa0e05716e67e35))
+* dx-116: added new value ([7e8eb11](https://github.com/apentsak-vitech/meowhq-helm-charts/commit/7e8eb11f13b68931bcfb5c871913cc6b90db44d6))
+
 ## [1.6.0](https://github.com/apentsak-vitech/meowhq-helm-charts/compare/meowhq-nginx-v1.5.0...meowhq-nginx-v1.6.0) (2024-03-18)
 
 
