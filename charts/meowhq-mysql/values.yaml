@@ -1,5 +1,0 @@
-auth:
-  createDatabase: true
-  database: database
-  username: user
-  password: test
