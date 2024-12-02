@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-redis-v1.17.0...meowhq-redis-v1.18.0) (2024-12-02)
+
+
+### Features
+
+* **deps:** update helm release redis to v17.17.1 ([#191](https://github.com/sunggun-yu/meowhq-helm-charts/issues/191)) ([8b7b013](https://github.com/sunggun-yu/meowhq-helm-charts/commit/8b7b01390ee8fc74ee96599e17e9081c1a1ecb16))
+
 ## [1.17.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-redis-v1.16.0...meowhq-redis-v1.17.0) (2023-12-05)
 
 
