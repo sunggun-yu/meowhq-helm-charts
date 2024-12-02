@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.5.0...meowhq-nginx-v1.5.1) (2024-12-02)
+
+
+### Bug Fixes
+
+* test after rebuilding ([#223](https://github.com/sunggun-yu/meowhq-helm-charts/issues/223)) ([db67167](https://github.com/sunggun-yu/meowhq-helm-charts/commit/db67167111791639e3563a97eb41cbcd4a3c2c91))
+
 ## [1.5.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.4.5...meowhq-nginx-v1.5.0) (2023-12-03)
 
 
