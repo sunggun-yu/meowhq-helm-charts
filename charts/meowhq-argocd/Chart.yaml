@@ -6,7 +6,8 @@ name: meowhq-argocd
 description: A Helm chart for argocd
 type: application
 version: 0.8.0
+appVersion: 6.0.0
 dependencies:
   - name: argo-cd
-    version: 5.55.0
+    version: 6.0.0
     repository: "https://argoproj.github.io/argo-helm"
