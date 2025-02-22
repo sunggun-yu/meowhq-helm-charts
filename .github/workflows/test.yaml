@@ -36,12 +36,12 @@ jobs:
         id: check-commit
         with:
           script: |
-            const commit = await github.rest.repos.getCommit({
+            const result = await github.rest.repos.getCommit({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: context.sha
             });
-            return commit.committer.name !== 'GitHub' || commit.committer.login !== 'web-flow';
+            return result.commit.committer.name !== 'GitHub' || result.committer.login !== 'web-flow';
           result-encoding: string
       
       # Set default output for PR events
