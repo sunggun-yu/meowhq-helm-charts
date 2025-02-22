@@ -25,6 +25,7 @@ jobs:
   # - true if the event is a PR event
   # so that, we can skip the following job if the commit is associated with a PR when it is merged to main branch
   # - to prevent running the job twice
+  # if committer login is `web-flow, consider it's from merged PR event
   pre-check:
     runs-on: ubuntu-latest
     outputs:
@@ -40,7 +41,7 @@ jobs:
               repo: context.repo.repo,
               ref: context.sha
             });
-            return !/\(#\d+\)\s*$/.test(commit.data.commit.message);
+            return commit.data.committer.login !== 'web-flow';
           result-encoding: string
       
       # Set default output for PR events
