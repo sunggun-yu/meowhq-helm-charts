@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.5.1...meowhq-nginx-v1.6.0) (2025-02-22)
+
+
+### Features
+
+* **deps:** update helm release nginx to v15.4.5 ([#211](https://github.com/sunggun-yu/meowhq-helm-charts/issues/211)) ([040ec04](https://github.com/sunggun-yu/meowhq-helm-charts/commit/040ec045db64a2129a6ac9f09ab2c99f9d8aef88))
+
 ## [1.5.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.5.0...meowhq-nginx-v1.5.1) (2024-12-02)
 
 
