@@ -20,18 +20,22 @@ env:
   DO_INSTALL_TEST: false
 
 jobs:
+  # The pre-check job determines whether the workflow should proceed based on the event type and associated PRs:
+  # - true if the event is a PR event
+  # - true if the commit is not associated with any PR by checking the committer name is GitHub or not
+  #   - the committer name is GitHub when the commit is merged to the base branch from a PR in the UI
+  # so that, we can skip the following job if the commit is associated with a PR when it is merged to main branch
+  # - to prevent running the job twice
   pre-check:
     runs-on: ubuntu-latest
     outputs:
-      run_workflow: ${{ steps.check-commit.outputs.result }}
+      proceed_workflow: ${{ steps.check-commit.outputs.result }}
     steps:
       - uses: actions/github-script@v7
         id: check-commit
         with:
-          debug: true
           script: |
             if (context.eventName === 'pull_request') {
-              console.log('PR event');
               return true;
             }
             const commit = await github.rest.repos.getCommit({
@@ -39,16 +43,13 @@ jobs:
               repo: context.repo.repo,
               ref: context.sha
             });
-            const isSkipWorkflow = commit.data.commit.committer?.name === 'GitHub';
-            console.log('Skip Workflow?', isSkipWorkflow);
-            console.log('Committer login:', commit.data.committer?.login);
-            console.log('Committer name:', commit.data.commit.committer?.name);
-            return isSkipWorkflow ? false : true;
+            const isCommitterGitHub = commit.data.commit.committer?.name === 'GitHub';
+            return isCommitterGitHub ? false : true;
           result-encoding: string
 
   lint-test:
     needs: pre-check
-    if: needs.pre-check.outputs.run_workflow == 'true' && github.head_ref != 'release-please--branches--main'
+    if: needs.pre-check.outputs.proceed_workflow == 'true' && github.head_ref != 'release-please--branches--main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
