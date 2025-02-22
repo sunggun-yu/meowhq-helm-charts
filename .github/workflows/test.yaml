@@ -36,6 +36,7 @@ jobs:
         with:
           script: |
             if (context.eventName === 'pull_request') {
+              console.log('PR event');
               return true;
             }
             const commit = await github.rest.repos.getCommit({
@@ -43,7 +44,11 @@ jobs:
               repo: context.repo.repo,
               ref: context.sha
             });
-            return commit.data.committer.login !== 'web-flow';
+            const isWebFlow = commit.data.committer?.login === 'web-flow';
+            console.log('Is web-flow?', isWebFlow);
+            console.log('Committer login:', commit.data.committer?.login);
+            console.log('Committer name:', commit.data.commit.committer?.name);
+            return !isWebFlow;
           result-encoding: string
 
   lint-test:
