@@ -8,5 +8,5 @@ type: application
 version: 1.7.0
 dependencies:
   - name: nginx
-    version: 15.14.2
+    version: 19.0.0
     repository: "https://charts.bitnami.com/bitnami"
