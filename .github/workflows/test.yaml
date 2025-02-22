@@ -20,12 +20,6 @@ env:
   DO_INSTALL_TEST: false
 
 jobs:
-  # The pre-check job determines whether the workflow should proceed based on the event type and associated PRs:
-  # - true if the commit is not associated with any PR if it is a push event
-  # - true if the event is a PR event
-  # so that, we can skip the following job if the commit is associated with a PR when it is merged to main branch
-  # - to prevent running the job twice
-  # if committer login is `web-flow, consider it's from merged PR event
   pre-check:
     runs-on: ubuntu-latest
     outputs:
@@ -45,16 +39,16 @@ jobs:
               repo: context.repo.repo,
               ref: context.sha
             });
-            const isWebFlow = commit.data.committer?.login === 'web-flow';
-            console.log('Is web-flow?', isWebFlow);
+            const isSkipWorkflow = commit.data.commit.committer?.name === 'GitHub';
+            console.log('Skip Workflow?', isSkipWorkflow);
             console.log('Committer login:', commit.data.committer?.login);
             console.log('Committer name:', commit.data.commit.committer?.name);
-            return !isWebFlow;
+            return isSkipWorkflow ? false : true;
           result-encoding: string
 
   lint-test:
     needs: pre-check
-    if: needs.pre-check.outputs.run_workflow == 'true' || github.head_ref != 'release-please--branches--main'
+    if: needs.pre-check.outputs.run_workflow == 'true' && github.head_ref != 'release-please--branches--main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
