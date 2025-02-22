@@ -41,7 +41,7 @@ jobs:
               repo: context.repo.repo,
               ref: context.sha
             });
-            return commit.committer.name !== 'GitHub' || committer.login !== 'web-flow';
+            return commit.committer.name !== 'GitHub' || commit.committer.login !== 'web-flow';
           result-encoding: string
       
       # Set default output for PR events
