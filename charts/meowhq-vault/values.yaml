@@ -504,7 +504,7 @@ vault:
 
       # Configures the service type for the main Vault service.  Can be ClusterIP
       # or NodePort.
-      #type: ClusterIP
+      # type: ClusterIP
 
       # The externalTrafficPolicy can be set to either Cluster or Local
       # and is only valid for LoadBalancer and NodePort service types.
@@ -514,7 +514,7 @@ vault:
 
       # If type is set to "NodePort", a specific nodePort value can be configured,
       # will be random if left blank.
-      #nodePort: 30000
+      # nodePort: 30000
 
       # Port on which Vault server is listening
       port: 8200
@@ -739,9 +739,9 @@ vault:
     # ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-traffic-policy
     externalTrafficPolicy: Cluster
 
-    #loadBalancerSourceRanges:
-    #   - 10.0.0.0/16
-    #   - 1.78.23.3/32
+    # loadBalancerSourceRanges:
+    #    - 10.0.0.0/16
+    #    - 1.78.23.3/32
 
     # loadBalancerIP:
 
