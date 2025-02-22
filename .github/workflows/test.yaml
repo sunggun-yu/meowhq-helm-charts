@@ -35,12 +35,12 @@ jobs:
         id: check-commit
         with:
           script: |
-            const associatedPRs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+            const commit = await github.rest.repos.getCommit({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              commit_sha: context.sha
+              ref: context.sha
             });
-            return associatedPRs.data.length == 0;
+            return !/\(#\d+\)/.test(commit.data.commit.message);
           result-encoding: string
       
       # Set default output for PR events
