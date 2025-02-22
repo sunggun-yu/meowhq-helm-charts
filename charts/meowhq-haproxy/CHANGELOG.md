@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-haproxy-v1.3.0...meowhq-haproxy-v1.4.0) (2025-02-22)
+
+
+### Features
+
+* **deps:** update helm release haproxy to v2 ([#231](https://github.com/sunggun-yu/meowhq-helm-charts/issues/231)) ([9dbce1a](https://github.com/sunggun-yu/meowhq-helm-charts/commit/9dbce1af4d9127b5d1363872bea5294ab6d4b918))
+
 ## [1.3.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-haproxy-v1.2.0...meowhq-haproxy-v1.3.0) (2025-02-22)
 
 
