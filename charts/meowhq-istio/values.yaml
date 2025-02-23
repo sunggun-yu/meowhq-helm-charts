@@ -84,7 +84,8 @@ istiod:
     #   clusterName: "change-me-to-the-cluster-name" # e.g. cluster1
     # externalIstiod: true
     multiCluster:
-      enabled: false # make it true for multi-cluster setup
+      # make it true for multi-cluster setup
+      enabled: false
   pilot:
     autoscaleEnabled: true
     autoscaleMin: 2
