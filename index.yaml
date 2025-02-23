@@ -42,6 +42,20 @@ entries:
   meowhq-istio-gateway:
   - apiVersion: v2
     appVersion: 1.24.3
+    created: "2025-02-23T21:28:19.536734051Z"
+    dependencies:
+    - name: gateway
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.24.3
+    description: A Parent Helm chart that configures Istio Ingress Gateway
+    digest: ad7d28b38fb22916535d4c7f774bc0740701af6583d8ee969635939e1257034c
+    name: meowhq-istio-gateway
+    type: application
+    urls:
+    - https://github.com/sunggun-yu/meowhq-helm-charts/releases/download/meowhq-istio-gateway-1.0.1/meowhq-istio-gateway-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.24.3
     created: "2025-02-23T06:27:33.884905328Z"
     dependencies:
     - name: gateway
@@ -68,4 +82,4 @@ entries:
     urls:
     - https://github.com/sunggun-yu/meowhq-helm-charts/releases/download/meowhq-istio-gateway-0.0.0/meowhq-istio-gateway-0.0.0.tgz
     version: 0.0.0
-generated: "2025-02-23T06:27:33.884916759Z"
+generated: "2025-02-23T21:28:19.536747827Z"
