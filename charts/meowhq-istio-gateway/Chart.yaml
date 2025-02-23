@@ -2,7 +2,7 @@ apiVersion: v2
 name: meowhq-istio-gateway
 description: A Parent Helm chart that configures Istio Ingress Gateway
 type: application
-version: 0.0.0
+version: 1.0.0
 appVersion: 1.24.3
 dependencies:
   - name: gateway

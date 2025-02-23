@@ -5,6 +5,6 @@
   "charts/meowhq-nginx": "1.8.0",
   "charts/meowhq-haproxy": "1.4.0",
   "charts/meowhq-redis": "1.19.0",
-  "charts/meowhq-istio": "0.0.0",
-  "charts/meowhq-istio-gateway": "0.0.0"
+  "charts/meowhq-istio": "1.0.0",
+  "charts/meowhq-istio-gateway": "1.0.0"
 }
