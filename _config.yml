@@ -1,0 +1,17 @@
+
+title: MeowHQ Helm Repository
+description: A Helm repository for MeowHQ Helm charts
+author:
+  name: Sunggun Yu
+timezone: America/New_York
+show_excerpts: true
+theme: minima
+plugins:
+  - jekyll-seo-tag
+
+minima:
+  skin: dark
+  social_links:
+    - title: meowhq-helm-charts repository at GitHub
+      icon: github
+      url: "https://github.com/sunggun-yu/meowhq-helm-charts"
