@@ -1,13 +1,22 @@
 {{/*
-  read gateway.name from the istio gateway(subchart) chart helper
+  read gateway.selectorLabels from the istio gateway(subchart) chart helper
+  the default value in values.yaml for gateway chart should be initialized with null to avoid nil pointer
+  ```yaml
+  gateway:
+    labels:
+      app: null
+      istio: null
+  ```
 */}}
-{{- define "gatewayName" -}}
-{{ template "gateway.name" .Subcharts.gateway }}
+{{- define "gatewaySelectorLabel" -}}
+{{ template "gateway.selectorLabels" .Subcharts.gateway }}
 {{- end }}
 
 {{/*
-  read gateway.selectorLabels from the istio gateway(subchart) chart helper
+  convert gateway.selectorLabels from the istio gateway(subchart) chart helper to dict and pick istio label value
+  and use it in the gateway selector
 */}}
 {{- define "gatewaySelectorLabelIstio" -}}
-{{ (((.Values.gateway).labels).istio | default (include "gatewayName" . | trimPrefix "istio-") | quote) }}
-{{- end }}
+{{- $dict := include "gatewaySelectorLabel" . | fromYaml -}}
+{{ $dict.istio }}
+{{- end -}}

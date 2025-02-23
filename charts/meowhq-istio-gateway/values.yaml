@@ -57,6 +57,11 @@ multicluster:
 gateway:
   name: istio-ingressgateway
   revision: "default"
+  imagePullSecrets: []
+  # gateway.labels.app/istio should be initialized with null as default to avoid null pointer in helper
+  labels:
+    app: null
+    istio: null
   service:
     type: LoadBalancer
     loadBalancerIP: ""

@@ -19,7 +19,6 @@ Table of Contents:
   - [Multicluster Settings](#multicluster-settings)
 - [Istio Ingress Gateway Deployment Configuration](#istio-ingress-gateway-deployment-configuration)
   - [Basic Settings](#basic-settings)
-  - [Pod Configuration](#pod-configuration)
   - [Service Configuration](#service-configuration)
   - [Resource Management](#resource-management)
 - [Examples](#examples)
@@ -77,21 +76,15 @@ This section provides configuration details for the official Istio Ingress Gatew
 ### Basic Settings
 
 - `gateway.name`: Name of the gateway deployment
-- `gateway.imagePullSecrets`: Image pull secrets configuration
+- `gateway.imagePullSecrets`: Image pull secrets configuration (default: empty array)
 - `gateway.revision`: Istio revision
-- `gateway.labels.app`: App label value
-- `gateway.labels.istio`: Istio label value
-
-### Pod Configuration
-
-- `gateway.podAnnotations.cluster-autoscaler.kubernetes.io/safe-to-evict`: Autoscaling eviction policy
+- `gateway.labels.app`: App label value (default: null). it will be automatically generated and set from gateway.name unless you set the custom value
+- `gateway.labels.istio`: Istio label value (default: null). it will be automatically generated and set from gateway.name unless you set the custom value
 
 ### Service Configuration
 
 - `gateway.service.type`: Service type (default: LoadBalancer)
 - `gateway.service.loadBalancerIP`: Load balancer IP address
-- `gateway.service.annotations.networking.gke.io/load-balancer-type`: GKE load balancer type
-- `gateway.service.annotations.networking.gke.io/internal-load-balancer-allow-global-access`: Global access setting
 
 ### Resource Management
 
@@ -100,7 +93,6 @@ This section provides configuration details for the official Istio Ingress Gatew
 - `gateway.autoscaling.enabled`: Enable autoscaling
 - `gateway.autoscaling.minReplicas`: Minimum replicas (default: 2)
 - `gateway.autoscaling.maxReplicas`: Maximum replicas (default: 8)
-- `gateway.priorityClassName`: Priority class name for scheduling (default: infra-critical). PriorityClass `infra-critical` may not exist in the RKE or other type of cluster. please confirm what Priority class to use.
 
 ## Examples
 
@@ -109,7 +101,7 @@ This section provides configuration details for the official Istio Ingress Gatew
 ```yaml
 istioGateway:
   https:
-    credentialName: msdev
+    credentialName: my-cred
   additionalServers:
   - port:
       name: http
