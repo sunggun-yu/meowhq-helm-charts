@@ -91,7 +91,9 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         id: unittest
         run: |
-          helm dependency update ${{ steps.list-changed.outputs.charts }}
+          for chart in ${{ steps.list-changed.outputs.charts }}; do
+            helm dependency update $chart
+          done
           helm unittest ${{ steps.list-changed.outputs.charts }}
 
       - name: Create kind cluster
