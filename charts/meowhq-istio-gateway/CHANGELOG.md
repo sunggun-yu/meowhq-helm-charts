@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-istio-gateway-v1.0.0...meowhq-istio-gateway-v1.0.1) (2025-02-23)
+
+
+### Bug Fixes
+
+* change istio gateway default nameespace ([c1aee36](https://github.com/sunggun-yu/meowhq-helm-charts/commit/c1aee360476a0df1079f5e70e596ce5a8bebb48e))
+
 ## 1.0.0 (2025-02-23)
 
 
