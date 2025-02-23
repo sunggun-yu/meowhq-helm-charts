@@ -36,7 +36,7 @@ please see [examples](examples/README.md) for more about usage and examples of v
 Global settings shares common variables across the ingress gateway configuration
 
 - `global.istioGateway.apiVersion` - API version for Gateway resource (default: v1)
-- `global.istioGateway.namespace` - Target namespace for Gateway deployment (default: default)
+- `global.istioGateway.namespace` - Target namespace for Gateway deployment (default: istio-system)
 
 ### Default Gateway Settings
 

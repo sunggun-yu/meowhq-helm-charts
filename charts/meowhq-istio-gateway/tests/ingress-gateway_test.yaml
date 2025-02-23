@@ -17,7 +17,7 @@ tests:
       apiVersion: networking.istio.io/v1
       kind: Gateway
       name: ingress-gateway
-      namespace: default
+      namespace: istio-system
   - equal:
       path: spec
       value:
@@ -45,7 +45,7 @@ tests:
       apiVersion: networking.istio.io/v1
       kind: Gateway
       name: ingress-gateway
-      namespace: default
+      namespace: istio-system
   - equal:
       path: spec
       value:

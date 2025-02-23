@@ -17,7 +17,7 @@ tests:
       apiVersion: networking.istio.io/v1
       kind: Gateway
       name: cross-network-gateway
-      namespace: default
+      namespace: istio-system
   - equal:
       path: spec
       value:
@@ -62,7 +62,7 @@ tests:
       apiVersion: networking.istio.io/v1
       kind: Gateway
       name: istiod-gateway
-      namespace: default
+      namespace: istio-system
   - equal:
       path: spec
       value:
