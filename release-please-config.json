@@ -9,6 +9,8 @@
     "charts/meowhq-vault": {},
     "charts/meowhq-nginx": {},
     "charts/meowhq-haproxy": {},
-    "charts/meowhq-redis": {}
+    "charts/meowhq-redis": {},
+    "charts/meowhq-istio": {},
+    "charts/meowhq-istio-gateway": {}
   }
 }
