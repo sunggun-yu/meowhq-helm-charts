@@ -1,0 +1,42 @@
+suite: Istio Gateway subchart test - Service for cross-network-gateway configuration
+templates:
+  - charts/* # this includes all the templates in the subchart
+release:
+  name: "istio-gateway"
+  namespace: "istio-system"
+tests:
+- it: should render service with default values
+  template: charts/gateway/templates/service.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: v1
+      kind: Service
+      name: istio-ingressgateway
+      namespace: istio-system
+  - isSubset:
+      path: metadata.labels
+      content:
+        app: istio-ingressgateway
+        istio: ingressgateway
+  - notExists:
+      path: spec.loadBalancerIP
+
+# default service ports should open the following ports: 15021, 80, 443
+- it: should render service ports with default values
+  template: charts/gateway/templates/service.yaml
+  asserts:
+  - equal:
+      path: spec.ports
+      value:
+        - name: status-port
+          port: 15021
+          protocol: TCP
+          targetPort: 15021
+        - name: http2
+          port: 80
+          protocol: TCP
+          targetPort: 80
+        - name: https
+          port: 443
+          protocol: TCP
+          targetPort: 443

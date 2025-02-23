@@ -1,0 +1,15 @@
+# =============================================================================
+# istio Gateway resources configuration - networking.istio.io/Gateway
+# =============================================================================
+istioGateway:
+  name: internal-ingress-gateway
+  https:
+    credentialName: internal-gateway-tls
+
+# =============================================================================
+# istio-gateway Helm Chart configuration : Ingress Gateway
+# =============================================================================
+gateway:
+  name: istio-internal-ingressgateway
+  service:
+    loadBalancerIP: "192.168.10.11"

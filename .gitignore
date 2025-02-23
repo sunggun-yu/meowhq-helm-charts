@@ -3,3 +3,4 @@
 **/*.tgz
 .target
 ct_previous_revision*
+Chart.lock

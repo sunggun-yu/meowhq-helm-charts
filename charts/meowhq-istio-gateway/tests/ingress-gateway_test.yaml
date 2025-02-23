@@ -1,0 +1,88 @@
+suite: Istio Gateway ingress-gateway tests
+templates:
+  - ingress-gateway.yaml
+  - multicluster/cross-network-gateway.yaml
+  - multicluster/istiod-gateway.yaml
+  - multicluster/istiod-virtualservice.yaml
+release:
+  name: "istio-gateway"
+  namespace: "istio-system"
+values:
+  - values/ingress-gateway-values.yaml
+tests: 
+- it: render Gateway for ingress-gateway  
+  template: ingress-gateway.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: ingress-gateway
+      namespace: default
+  - equal:
+      path: spec
+      value:
+        selector:
+          istio: ingressgateway
+        servers:
+        - port:
+            name: https
+            number: 443
+            protocol: HTTPS
+          tls:
+            credentialName: gateway-tls
+            mode: SIMPLE
+          hosts:
+            - '*'
+
+- it: render Gateway with given tls mode
+  template: ingress-gateway.yaml
+  set:
+    istioGateway:
+      https:
+        tlsMode: PASSTHROUGH
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: ingress-gateway
+      namespace: default
+  - equal:
+      path: spec
+      value:
+        selector:
+          istio: ingressgateway
+        servers:
+        - port:
+            name: https
+            number: 443
+            protocol: HTTPS
+          tls:
+            credentialName: gateway-tls
+            mode: PASSTHROUGH
+          hosts:
+            - '*'
+
+- it: should not render the cross-network-gateway Gateway
+  template: multicluster/cross-network-gateway.yaml
+  asserts:
+  - not: true
+    containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+
+- it: should not render the istiod-gateway Gateway
+  template: multicluster/istiod-gateway.yaml
+  asserts:
+  - not: true
+    containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+
+- it: should not render the istiod-vs VirtualService
+  template: multicluster/istiod-virtualservice.yaml
+  asserts:
+  - not: true
+    containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: VirtualService
+      name: istiod-vs

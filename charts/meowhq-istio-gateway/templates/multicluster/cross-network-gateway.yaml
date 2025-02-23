@@ -1,0 +1,22 @@
+{{- if .Values.multicluster.enabled  }}
+apiVersion: networking.istio.io/{{ .Values.global.istioGateway.apiVersion }}
+kind: Gateway
+metadata:
+  name: {{ .Values.multicluster.crossNetworkGateway.name }}
+  namespace: {{ .Values.global.istioGateway.namespace }}
+spec:
+  selector:
+    istio: {{ include "gatewaySelectorLabelIstio" . }}
+  servers:
+  - port:
+      name: tls
+      number: 15443
+      protocol: TLS
+    tls:
+      mode: AUTO_PASSTHROUGH
+    hosts:
+      - '*.local'
+  {{- with .Values.multicluster.crossNetworkGateway.additionalServers }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,16 @@
+{{/*
+create the service account token for istio-reader-service-account SA for the remote cluster when multiCluster is enabled
+this token will be used by other clusters to access the remote cluster to enable istio multiCluster
+
+istio-reader-service-account service account is being created in istio base helm chart by default with reader role/rolebinding
+*/}}
+{{- if .Values.istiod.global.multiCluster.enabled }}
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/service-account-token
+metadata:
+  name: istio-reader-service-account-istio-remote-secret-token
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    kubernetes.io/service-account.name: istio-reader-service-account
+{{- end }}

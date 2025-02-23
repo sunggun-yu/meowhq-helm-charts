@@ -1,0 +1,30 @@
+{{- if and .Values.multicluster.enabled .Values.multicluster.istiodGateway.enabled }}
+apiVersion: networking.istio.io/{{ .Values.global.istioGateway.apiVersion }}
+kind: Gateway
+metadata:
+  name: {{ .Values.multicluster.istiodGateway.name }}
+  namespace: {{ .Values.global.istioGateway.namespace }}
+spec:
+  selector:
+    istio: {{ include "gatewaySelectorLabelIstio" . }}
+  servers:
+  - port:
+      name: tls-istiod
+      number: 15012
+      protocol: tls
+    tls:
+      mode: PASSTHROUGH
+    hosts:
+      - "*"
+  - port:
+      name: tls-istiodwebhook
+      number: 15017
+      protocol: tls
+    tls:
+      mode: PASSTHROUGH
+    hosts:
+      - "*"
+  {{- with .Values.multicluster.istiodGateway.additionalServers }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}

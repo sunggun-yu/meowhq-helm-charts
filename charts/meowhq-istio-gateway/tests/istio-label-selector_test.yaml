@@ -1,0 +1,91 @@
+suite: Istio Gateway ingress-gateway istio label selector tests
+templates:
+  - ingress-gateway.yaml
+  - multicluster/cross-network-gateway.yaml
+  - multicluster/istiod-gateway.yaml
+  - multicluster/istiod-virtualservice.yaml
+  - charts/*
+release:
+  name: "istio-my-ingressgateway" # test case <========================================
+  namespace: "istio-system"
+set:
+  gateway:
+    name: null # test case. set null to enforce to use release name
+tests:
+- it: render istio selector label from release name after trim "istio-" as expected for ingress-gateway
+  template: ingress-gateway.yaml
+  asserts:
+  - equal:
+      path: spec.selector.istio
+      value: my-ingressgateway
+
+- it: render istio selector label from release name after trim "istio-" as expected for cross-network-gateway
+  set:
+    multicluster:
+      enabled: true
+  template: multicluster/cross-network-gateway.yaml
+  asserts:
+  - equal:
+      path: spec.selector.istio
+      value: my-ingressgateway
+
+- it: render istio selector label from release name after trim "istio-" as expected for cross-network-gateway
+  set:
+    multicluster:
+      enabled: true
+      istiodGateway:
+        enabled: true
+  template: multicluster/istiod-gateway.yaml
+  asserts:
+  - equal:
+      path: spec.selector.istio
+      value: my-ingressgateway
+
+- it: render istio selector label from values for default gateway as expected for ingress-gateway
+  template: ingress-gateway.yaml
+  set:
+    gateway:
+      labels:
+        app: some-custom-label
+        istio: some-custom-label  # test case <========================================
+  asserts:
+  - equal:
+      path: spec.selector.istio
+      value: some-custom-label
+
+- it: render istio selector label from values for default gateway as expected for cross-network-gateway
+  template: multicluster/cross-network-gateway.yaml
+  set:
+    multicluster:
+      enabled: true
+    gateway:
+      labels:
+        istio: istio-some-custom-label  # test case: it starts with "istio-"
+  asserts:
+  - equal:
+      path: spec.selector.istio
+      value: istio-some-custom-label # test case: it doesn't trim the "istio-", it should uses what it given in label.istio as it is
+
+- it: render selector label from release name as expected
+  template: charts/gateway/templates/service.yaml
+  asserts:
+  - equal:
+      path: spec.selector.app
+      value: istio-my-ingressgateway
+  - equal:
+      path: spec.selector.istio
+      value: my-ingressgateway
+
+- it: render label from release name as expected
+  template: charts/gateway/templates/deployment.yaml
+  asserts:
+  - isSubset:
+      path: metadata.labels
+      content:
+        app: istio-my-ingressgateway
+        istio: my-ingressgateway
+  - isSubset:
+      path: spec.template.metadata.labels
+      content:
+        app: istio-my-ingressgateway
+        istio: my-ingressgateway
