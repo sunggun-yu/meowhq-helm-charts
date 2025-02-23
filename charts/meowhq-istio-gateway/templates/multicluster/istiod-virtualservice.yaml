@@ -1,0 +1,31 @@
+{{- if and .Values.multicluster.enabled .Values.multicluster.istiodGateway.enabled }}
+apiVersion: networking.istio.io/{{ .Values.global.istioGateway.apiVersion }}
+kind: VirtualService
+metadata:
+  name: istiod-vs
+  namespace: {{ .Release.Namespace }}
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - "{{ .Values.global.istioGateway.namespace }}/{{ .Values.multicluster.istiodGateway.name }}"
+  tls:
+  - match:
+    - port: 15012
+      sniHosts:
+      - "*"
+    route:
+    - destination:
+        host: istiod.{{ .Release.Namespace }}.svc.cluster.local
+        port:
+          number: 15012
+  - match:
+    - port: 15017
+      sniHosts:
+      - "*"
+    route:
+    - destination:
+        host: istiod.{{ .Release.Namespace }}.svc.cluster.local
+        port:
+          number: 443
+{{- end }}

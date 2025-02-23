@@ -1,0 +1,100 @@
+suite: Istio Gateway multicluster config tests
+templates:
+  - ingress-gateway.yaml
+  - multicluster/cross-network-gateway.yaml
+  - multicluster/istiod-gateway.yaml
+  - multicluster/istiod-virtualservice.yaml
+release:
+  name: "istio-gateway"
+  namespace: "istio-system"
+values:
+  - values/multicluster-values.yaml
+tests:
+- it: render Gateway for cross-network-gateway
+  template: multicluster/cross-network-gateway.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: cross-network-gateway
+      namespace: default
+  - equal:
+      path: spec
+      value:
+        selector:
+          istio: cross-network-gateway
+        servers:
+        - port:
+            name: tls
+            number: 15443
+            protocol: TLS
+          tls:
+            mode: AUTO_PASSTHROUGH
+          hosts:
+            - '*.local'
+
+- it: should not render the ingress-gateway Gateway when multicluster is enabled
+  template: ingress-gateway.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+    not: true
+
+- it: should not render the istiod-gateway Gateway by default
+  template: multicluster/istiod-gateway.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: istiod-gateway
+      namespace: default
+    not: true
+
+- it: should render the istiod-gateway Gateway when it is enabled
+  set:
+    multicluster:
+      istiodGateway:
+        enabled: true
+  template: multicluster/istiod-gateway.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: istiod-gateway
+      namespace: default
+  - equal:
+      path: spec
+      value:
+        selector:
+          istio: cross-network-gateway
+        servers:
+        - port:
+            name: tls-istiod
+            number: 15012
+            protocol: tls
+          tls:
+            mode: PASSTHROUGH
+          hosts:
+            - "*"
+        - port:
+            name: tls-istiodwebhook
+            number: 15017
+            protocol: tls
+          tls:
+            mode: PASSTHROUGH
+          hosts:
+            - "*"
+
+- it: should render the istiod-vs VirtualService when istiodGateway is enabled
+  set:
+    multicluster:
+      istiodGateway:
+        enabled: true
+  template: multicluster/istiod-virtualservice.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: VirtualService
+      name: istiod-vs
+      namespace: istio-system

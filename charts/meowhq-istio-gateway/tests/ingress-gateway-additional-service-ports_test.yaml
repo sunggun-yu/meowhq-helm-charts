@@ -1,0 +1,62 @@
+suite: Istio Gateway subchart test - Service for additional ingress port configuration
+templates:
+  - ingress-gateway.yaml
+  - charts/* # this includes all the templates in the subchart
+release:
+  name: "istio-gateway"
+  namespace: "istio-system"
+values:
+  - values/ingress-gateway-additional-service-ports-values.yaml
+tests:
+# default service ports should open the following ports: 15021, 80, 443
+- it: should render service ports with default values
+  template: charts/gateway/templates/service.yaml
+  asserts:
+  - equal:
+      path: spec.ports
+      value:
+        - name: status-port
+          port: 15021
+          protocol: TCP
+          targetPort: 15021
+        - name: http2
+          port: 80
+          protocol: TCP
+          targetPort: 80
+        - name: https
+          port: 443
+          protocol: TCP
+          targetPort: 443
+        - name: tcp
+          port: 9443
+          protocol: TCP
+          targetPort: 9443
+- it: render Gateway with additionalServers for ingress-gateway
+  template: ingress-gateway.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: ingress-gateway
+      namespace: default
+  - equal:
+      path: spec
+      value:
+        selector:
+          istio: ingressgateway
+        servers:
+        - port:
+            name: https
+            number: 443
+            protocol: HTTPS
+          tls:
+            credentialName: gateway-tls
+            mode: SIMPLE
+          hosts:
+            - '*'
+        - port:
+            name: tcp
+            number: 9443
+            protocol: TCP
+          hosts:
+          - '*'

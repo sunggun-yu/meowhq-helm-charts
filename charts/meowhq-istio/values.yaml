@@ -1,0 +1,104 @@
+# =============================================================================
+# istio base Helm Chart configuration
+# =============================================================================
+base:
+  enabled: true
+  defaultRevision: default
+
+# =============================================================================
+# istiod Helm Chart configuration
+# =============================================================================
+istiod:
+  enabled: true
+  meshConfig:
+    accessLogFile: /dev/stdout
+    ## ----------------------------------------------------------------------
+    ## below is to enable tracing with otel-tracing extension
+    ## ----------------------------------------------------------------------
+    # enableTracing: true
+    # extensionProviders:
+    # - name: otel-tracing
+    #   opentelemetry:
+    #     port: 4317
+    #     service: otelc-collector.opentelemetry-operator.svc.cluster.local
+    # defaultProviders:
+    #   tracing:
+    #     - otel-tracing
+    defaultConfig:
+      holdApplicationUntilProxyStarts: true
+      ## ----------------------------------------------------------------------
+      ## below is for the istio multicluster setup: defaultConfig.proxyMetadata
+      ## ----------------------------------------------------------------------
+      # proxyMetadata:
+      #   # Enable basic DNS proxying
+      #   ISTIO_META_DNS_CAPTURE: "true"
+      #   # Enable automatic address allocation, optional
+      #   ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+
+    # keeping traffic in-cluster for the following services
+    # <https://istio.io/latest/docs/ops/configuration/traffic-management/multicluster/#keeping-traffic-in-cluster>
+    serviceSettings:
+    - settings:
+        clusterLocal: true
+      hosts:
+      - "*.kube-system.svc.cluster.local"
+      - "*.argocd.svc.cluster.local"
+      - "*.cert-manager.svc.cluster.local"
+      - "*.external-secrets.svc.cluster.local"
+
+  # global configuration for istiod
+  # istiod.global can be configured under global section
+  global:
+    configValidation: true
+    proxy:
+      logLevel: info
+      # Resources for the sidecar.
+      resources:
+        # default values in istiod chart are 100m and 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+        # default values in istiod chart are 2000m and 1024Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi
+
+    ## ------------------------------------------------------------------------
+    ## below for the istio-csr integration for Vault PKI - istio multicluster setup
+    ## istiod.global.caAddress: "cert-manager-istio-csr.istio-system.svc:443"
+    ## ------------------------------------------------------------------------
+    # caAddress: "cert-manager-istio-csr.istio-system.svc:443"
+
+    ## ------------------------------------------------------------------------
+    ## below for the istio multicluster setup
+    ## istiod.global.meshID: "change-me-to-the-mesh-name"
+    ## istiod.global.network: "change-me-to-the-cluster-name"
+    ## istiod.global.multiCluster.enabled: true
+    ## istiod.global.multiCluster.clusterName: "change-me-to-the-cluster-name"
+    ## istiod.global.externalIstiod: true # when expose istiod to external - primary-remote setup
+    ## ------------------------------------------------------------------------
+    # meshID: "change-me-to-the-mesh-name" # e.g. mesh1
+    # network: "change-me-to-the-network-name" # e.g. network1
+    # multiCluster:
+    #   enabled: true
+    #   clusterName: "change-me-to-the-cluster-name" # e.g. cluster1
+    # externalIstiod: true
+
+  pilot:
+    autoscaleEnabled: true
+    autoscaleMin: 2
+    cni:
+      enabled: true
+    podAnnotations:
+      # just copying from existing - maybe not needed
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    resources:
+      # default values in istiod chart are 500m and 2048Mi
+      requests:
+        cpu: 10m
+        memory: 100Mi
+    ## ------------------------------------------------------------------------
+    ## below for the istio-csr integration for Vault PKI - istio multicluster setup
+    ## ------------------------------------------------------------------------
+    # env:
+    #   ENABLE_CA_SERVER: false

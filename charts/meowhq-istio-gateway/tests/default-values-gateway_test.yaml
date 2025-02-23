@@ -1,0 +1,60 @@
+suite: Istio Gateway ingress-gateway tests
+templates:
+  - ingress-gateway.yaml
+  - multicluster/cross-network-gateway.yaml
+  - multicluster/istiod-gateway.yaml
+  - multicluster/istiod-virtualservice.yaml
+release:
+  name: "istio-ingressgateway"
+  namespace: "istio-system"
+tests: 
+- it: render Gateway with default values
+  template: ingress-gateway.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: ingress-gateway
+      namespace: default
+  - equal:
+      path: spec
+      value:
+        selector:
+          istio: ingressgateway
+        servers:
+        - port:
+            name: https
+            number: 443
+            protocol: HTTPS
+          tls:
+            mode: SIMPLE
+            credentialName: gateway-tls
+          hosts:
+            - '*'
+
+- it: should not render the cross-network-gateway Gateway by default
+  template: multicluster/cross-network-gateway.yaml
+  asserts:
+  - not: true
+    containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+
+- it: should not render the istiod-gateway Gateway by default
+  template: multicluster/istiod-gateway.yaml
+  asserts:
+  - not: true
+    containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+
+- it: should not render the istiod-vs VirtualService by default
+  template: multicluster/istiod-virtualservice.yaml
+  asserts:
+  - not: true
+    containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: VirtualService
+      name: istiod-vs
+
+

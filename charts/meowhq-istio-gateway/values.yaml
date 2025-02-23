@@ -1,0 +1,74 @@
+# =============================================================================
+# istio Gateway resources configuration - networking.istio.io/Gateway
+# change followings to configure the istio Gateway resources - usual patterns are:
+# - name:
+#   - ingress-gateway
+#   - internal-ingress-gateway
+#   - cross-network-gateway
+# - credentialName:
+#   - gkegatewaysecret
+#   - internal-gkegatewaysecret
+# =============================================================================
+global:
+  istioGateway:
+    apiVersion: v1
+    namespace: default
+
+istioGateway:
+  enabled: true
+  name: ingress-gateway
+  # it enables https port 443 with TLS mode SIMPLE by default
+  https:
+    tlsMode: SIMPLE
+    credentialName: gateway-tls
+    # some uses cases may want to have multiple https with different hosts domains
+    hosts:
+      - "*"
+  additionalServers: []
+
+multicluster:
+  enabled: false
+  crossNetworkGateway:
+    # cross-network-gateway will be enabled by default if multicluster is enabled
+    name: cross-network-gateway
+    # there is possibility to use custom cluster local domain
+    hosts:
+    - "*.local"
+    additionalServers: []
+  istiodGateway:
+    # enabling istiod-gateway is used for the Gateway in the Primary-Remote setup
+    # enable only in the Primary cluster
+    enabled: false
+    name: istiod-gateway
+    additionalServers: []
+
+# =============================================================================
+# istio-gateway Helm Chart configuration : Ingress Gateway
+# change followings to configure the istio Gateway resources - usual patterns are:
+# - name, labels/app:
+#   - istio-ingressgateway
+#   - istio-internal-ingressgateway
+#   - istio-cross-network-gateway
+# - labels/istio:
+#   - ingressgateway
+#   - internal-ingressgateway
+#   - cross-network-gateway
+# =============================================================================
+gateway:
+  name: istio-ingressgateway
+  revision: "default"
+  service:
+    type: LoadBalancer
+    loadBalancerIP: ""
+    ## in case it is gke internal load balancer
+    # annotations:
+    #   networking.gke.io/load-balancer-type: internal
+    #   networking.gke.io/internal-load-balancer-allow-global-access: "true"
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8

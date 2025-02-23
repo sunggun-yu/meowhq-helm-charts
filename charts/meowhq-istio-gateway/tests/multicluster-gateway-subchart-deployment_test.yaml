@@ -1,0 +1,37 @@
+suite: Istio Gateway subchart test - Deployment for cross-network-gateway configuration
+templates:
+  - charts/* # this includes all the templates in the subchart
+release:
+  name: "istio-gateway"
+  namespace: "istio-system"
+values:
+  - values/multicluster-values.yaml
+tests:
+- it: should render deployment
+  template: charts/gateway/templates/deployment.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: istio-cross-network-gateway
+      namespace: istio-system
+  - isSubset:
+      path: metadata.labels
+      content:
+        app: istio-cross-network-gateway
+        istio: cross-network-gateway
+  - isSubset:
+      path: spec.template.metadata.labels
+      content:
+        istio.io/rev: "default"
+        app: istio-cross-network-gateway
+        istio: cross-network-gateway
+
+- it: should include ISTIO_META_REQUESTED_NETWORK_VIEW env var in the container of deployment for cross-network-gateway
+  template: charts/gateway/templates/deployment.yaml
+  asserts:
+  - contains:
+      path: spec.template.spec.containers[0].env
+      content:
+        name: ISTIO_META_REQUESTED_NETWORK_VIEW
+        value: "my-multi-cluster-gateway"

@@ -1,0 +1,19 @@
+suite: test istio-reader-sa-remote-token template
+templates:
+  - multicluster/istio-reader-sa-remote-token.yaml
+release:
+  namespace: istio-system
+values:
+  - values/multicluster-values.yaml
+tests:
+  - it: should render secret
+    asserts:
+    - containsDocument:
+        apiVersion: v1
+        kind: Secret
+        name: istio-reader-service-account-istio-remote-secret-token
+        namespace: istio-system
+    - isSubset:
+        path: metadata.annotations
+        content:
+          kubernetes.io/service-account.name: istio-reader-service-account

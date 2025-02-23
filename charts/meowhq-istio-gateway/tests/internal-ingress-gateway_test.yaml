@@ -1,0 +1,35 @@
+suite: Istio Gateway internal-ingress-gateway tests
+templates:
+  - ingress-gateway.yaml
+  - multicluster/cross-network-gateway.yaml
+  - multicluster/istiod-gateway.yaml
+  - multicluster/istiod-virtualservice.yaml
+release:
+  name: "istio-gateway"
+  namespace: "istio-system"
+values:
+  - values/internal-ingress-gateway-values.yaml
+tests: 
+- it: render Gateway for internal-ingress-gateway
+  template: ingress-gateway.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: internal-ingress-gateway
+      namespace: default
+  - equal:
+      path: spec
+      value:
+        selector:
+          istio: internal-ingressgateway
+        servers:
+        - port:
+            name: https
+            number: 443
+            protocol: HTTPS
+          tls:
+            credentialName: internal-gateway-tls
+            mode: SIMPLE
+          hosts:
+            - '*'

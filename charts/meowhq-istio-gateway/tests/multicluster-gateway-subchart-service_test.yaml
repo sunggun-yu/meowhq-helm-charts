@@ -1,0 +1,53 @@
+suite: Istio Gateway subchart test - Service for cross-network-gateway configuration
+templates:
+  - charts/* # this includes all the templates in the subchart
+release:
+  name: "istio-gateway"
+  namespace: "istio-system"
+values:
+  - values/multicluster-values.yaml
+tests:
+- it: should render service
+  template: charts/gateway/templates/service.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: v1
+      kind: Service
+      name: istio-cross-network-gateway
+      namespace: istio-system
+  - isSubset:
+      path: metadata.labels
+      content:
+        app: istio-cross-network-gateway
+        istio: cross-network-gateway
+  - equal:
+      path: spec.loadBalancerIP
+      value: 192.168.10.12
+
+- it: should render service with topology label for cross-network-gateway
+  template: charts/gateway/templates/service.yaml
+  asserts:
+  - isSubset:
+      path: metadata.labels
+      content:
+        topology.istio.io/network: "my-multi-cluster-gateway" # this is required for the multi-cluster gateway
+
+# cross-network-gateway service ports should open the following ports: 15021, 15443, 15012, 15017
+- it: should render service ports for cross-network-gateway
+  template: charts/gateway/templates/service.yaml
+  asserts:
+  - equal:
+      path: spec.ports
+      value:
+      - name: status-port
+        port: 15021
+        targetPort: 15021
+      - name: tls
+        port: 15443
+        targetPort: 15443
+      - name: tls-istiod
+        port: 15012
+        targetPort: 15012
+      - name: tls-webhook
+        port: 15017
+        targetPort: 15017

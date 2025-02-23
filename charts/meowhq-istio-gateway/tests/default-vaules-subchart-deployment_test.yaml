@@ -1,0 +1,27 @@
+suite: Istio Gateway subchart test - Deployment for cross-network-gateway configuration
+templates:
+  - charts/* # this includes all the templates in the subchart
+release:
+  name: "istio-gateway"
+  namespace: "istio-system"
+tests:
+- it: should render deployment with default values
+  template: charts/gateway/templates/deployment.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: istio-ingressgateway
+      namespace: istio-system
+  - isSubset:
+      path: metadata.labels
+      content:
+        app: istio-ingressgateway
+        istio: ingressgateway
+  - isSubset:
+      path: spec.template.metadata.labels
+      content:
+        istio.io/rev: "default"
+        app: istio-ingressgateway
+        istio: ingressgateway
+

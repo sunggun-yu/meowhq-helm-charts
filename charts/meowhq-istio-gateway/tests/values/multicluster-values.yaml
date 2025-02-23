@@ -1,0 +1,15 @@
+# =============================================================================
+# istio Gateway resources configuration - networking.istio.io/Gateway
+# =============================================================================
+multicluster:
+  enabled: true
+
+# =============================================================================
+# istio-gateway Helm Chart configuration : Ingress Gateway
+# =============================================================================
+gateway:
+  name: istio-cross-network-gateway
+  # networkGateway is required for cross-network-gateway
+  networkGateway: my-multi-cluster-gateway
+  service:
+    loadBalancerIP: "192.168.10.12"

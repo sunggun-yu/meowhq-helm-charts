@@ -1,0 +1,23 @@
+{{- if and .Values.istioGateway.enabled (not .Values.multicluster.enabled) }}
+apiVersion: networking.istio.io/{{ .Values.global.istioGateway.apiVersion }}
+kind: Gateway
+metadata:
+  name: {{ .Values.istioGateway.name }}
+  namespace: {{ .Values.global.istioGateway.namespace }}
+spec:
+  selector:
+    istio: {{ include "gatewaySelectorLabelIstio" . }}
+  servers:
+  - port:
+      name: https
+      number: 443
+      protocol: HTTPS
+    tls:
+      mode: {{ .Values.istioGateway.https.tlsMode }}
+      credentialName: {{ .Values.istioGateway.https.credentialName }}
+    hosts:
+    {{- .Values.istioGateway.https.hosts | toYaml | nindent 4 }}
+  {{- with .Values.istioGateway.additionalServers }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}
