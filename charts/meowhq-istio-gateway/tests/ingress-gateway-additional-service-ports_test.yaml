@@ -3,7 +3,7 @@ templates:
   - ingress-gateway.yaml
   - charts/* # this includes all the templates in the subchart
 release:
-  name: "istio-gateway"
+  name: "istio-ingressgateway"
   namespace: "istio-system"
 values:
   - values/ingress-gateway-additional-service-ports-values.yaml
