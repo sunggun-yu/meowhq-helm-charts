@@ -16,7 +16,7 @@ global:
 
 istioGateway:
   enabled: true
-  name: ingress-gateway
+  name: ""
   # it enables https port 443 with TLS mode SIMPLE by default
   https:
     tlsMode: SIMPLE
@@ -55,7 +55,7 @@ multicluster:
 #   - cross-network-gateway
 # =============================================================================
 gateway:
-  name: istio-ingressgateway
+  name: ""  # set the default value to empty string to avoid null pointer in helper and use the default value from the chart helper
   revision: "default"
   imagePullSecrets: []
   # gateway.labels.app/istio should be initialized with null as default to avoid null pointer in helper

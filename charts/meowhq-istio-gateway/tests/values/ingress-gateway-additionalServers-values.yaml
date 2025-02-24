@@ -2,6 +2,7 @@
 # istio Gateway resources configuration - networking.istio.io/Gateway
 # =============================================================================
 istioGateway:
+  name: ingress-gateway
   https:
     credentialName: my-tls-secret
   additionalServers:

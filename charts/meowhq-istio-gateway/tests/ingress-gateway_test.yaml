@@ -5,7 +5,7 @@ templates:
   - multicluster/istiod-gateway.yaml
   - multicluster/istiod-virtualservice.yaml
 release:
-  name: "istio-gateway"
+  name: "istio-ingressgateway"
   namespace: "istio-system"
 values:
   - values/ingress-gateway-values.yaml

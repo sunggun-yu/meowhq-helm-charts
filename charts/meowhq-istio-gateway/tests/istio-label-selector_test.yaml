@@ -19,6 +19,16 @@ tests:
       path: spec.selector.istio
       value: my-ingressgateway
 
+- it: render istio selector label from gateway.name and trim "istio-" prefix from name for ingress-gateway
+  set:
+    gateway:
+      name: istio-another-ingressgateway
+  template: ingress-gateway.yaml
+  asserts:
+  - equal:
+      path: spec.selector.istio
+      value: another-ingressgateway
+
 - it: render istio selector label from release name after trim "istio-" as expected for cross-network-gateway
   set:
     multicluster:

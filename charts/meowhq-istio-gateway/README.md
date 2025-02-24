@@ -75,7 +75,7 @@ This section provides configuration details for the official Istio Ingress Gatew
 
 ### Basic Settings
 
-- `gateway.name`: Name of the gateway deployment
+- `gateway.name`: Name of the gateway. If not set, it defaults to the release name with the 'istio-' prefix removed if it exists.
 - `gateway.imagePullSecrets`: Image pull secrets configuration (default: empty array)
 - `gateway.revision`: Istio revision
 - `gateway.labels.app`: App label value (default: null). it will be automatically generated and set from gateway.name unless you set the custom value

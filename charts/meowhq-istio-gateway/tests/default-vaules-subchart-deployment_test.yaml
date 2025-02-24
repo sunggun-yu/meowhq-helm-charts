@@ -2,7 +2,7 @@ suite: Istio Gateway subchart test - Deployment for cross-network-gateway config
 templates:
   - charts/* # this includes all the templates in the subchart
 release:
-  name: "istio-gateway"
+  name: "istio-ingressgateway"
   namespace: "istio-system"
 tests:
 - it: should render deployment with default values

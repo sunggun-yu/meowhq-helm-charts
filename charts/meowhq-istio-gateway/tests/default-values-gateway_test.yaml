@@ -14,7 +14,7 @@ tests:
   - containsDocument:
       apiVersion: networking.istio.io/v1
       kind: Gateway
-      name: ingress-gateway
+      name: ingressgateway
       namespace: istio-system
   - equal:
       path: spec
@@ -31,6 +31,28 @@ tests:
             credentialName: gateway-tls
           hosts:
             - '*'
+
+- it: render Gateway name with release name.
+  template: ingress-gateway.yaml
+  release:
+    name: "my-custom-ingressgateway"
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: my-custom-ingressgateway
+      namespace: istio-system
+
+- it: render Gateway name with release name. drop istio- prefix if exists
+  template: ingress-gateway.yaml
+  release:
+    name: "istio-my-custom-ingressgateway"
+  asserts:
+  - containsDocument:
+      apiVersion: networking.istio.io/v1
+      kind: Gateway
+      name: my-custom-ingressgateway
+      namespace: istio-system
 
 - it: should not render the cross-network-gateway Gateway by default
   template: multicluster/cross-network-gateway.yaml
