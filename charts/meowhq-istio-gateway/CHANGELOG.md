@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-istio-gateway-v1.0.1...meowhq-istio-gateway-v1.0.2) (2025-02-24)
+
+
+### Bug Fixes
+
+* **meowhq-istio-gateway:** reduce input values ([#252](https://github.com/sunggun-yu/meowhq-helm-charts/issues/252)) ([b090ad1](https://github.com/sunggun-yu/meowhq-helm-charts/commit/b090ad198320aeb6986372a43a8a2420b5ea5e82))
+
 ## [1.0.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-istio-gateway-v1.0.0...meowhq-istio-gateway-v1.0.1) (2025-02-23)
 
 
