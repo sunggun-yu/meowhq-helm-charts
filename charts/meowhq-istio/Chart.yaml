@@ -2,7 +2,7 @@ apiVersion: v2
 name: meowhq-istio
 description: A Helm chart that configures Istio CRD and Istiod
 type: application
-version: 1.0.0
+version: 1.0.1
 appVersion: 1.24.3
 dependencies:
   - name: base
