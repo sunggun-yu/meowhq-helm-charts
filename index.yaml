@@ -3,6 +3,25 @@ entries:
   meowhq-istio:
   - apiVersion: v2
     appVersion: 1.24.3
+    created: "2025-02-24T20:43:57.464003519Z"
+    dependencies:
+    - condition: base.enabled
+      name: base
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.24.3
+    - condition: istiod.enabled
+      name: istiod
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.24.3
+    description: A Helm chart that configures Istio CRD and Istiod
+    digest: 348beeec3b3853e12a5006f6726a66a60aad7abbaa91348fae5681c6fe9fb250
+    name: meowhq-istio
+    type: application
+    urls:
+    - https://github.com/sunggun-yu/meowhq-helm-charts/releases/download/meowhq-istio-1.0.1/meowhq-istio-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.24.3
     created: "2025-02-23T06:27:33.78274856Z"
     dependencies:
     - condition: base.enabled
@@ -96,4 +115,4 @@ entries:
     urls:
     - https://github.com/sunggun-yu/meowhq-helm-charts/releases/download/meowhq-istio-gateway-0.0.0/meowhq-istio-gateway-0.0.0.tgz
     version: 0.0.0
-generated: "2025-02-24T03:40:51.4154396Z"
+generated: "2025-02-24T20:43:57.464023887Z"
