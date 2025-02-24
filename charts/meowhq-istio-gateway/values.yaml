@@ -16,7 +16,7 @@ global:
 
 istioGateway:
   enabled: true
-  name: ingress-gateway
+  name: ""
   # it enables https port 443 with TLS mode SIMPLE by default
   https:
     tlsMode: SIMPLE

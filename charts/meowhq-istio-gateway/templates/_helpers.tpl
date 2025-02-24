@@ -20,3 +20,11 @@
 {{- $dict := include "gatewaySelectorLabel" . | fromYaml -}}
 {{ $dict.istio }}
 {{- end -}}
+
+{{/*
+  use the istioGatewayName same as gatewaySelectorLabelIstio convention.
+  so, if the release name is istio-ingressgateway, then the istioGateway.name will be ingressgateway by default if istioGateway.name is not set in values.yaml
+*/}}
+{{- define "istioGatewayName" -}}
+{{ .Values.istioGateway.name | default (include "gatewaySelectorLabelIstio" .) }}
+{{- end -}}

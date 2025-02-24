@@ -2,7 +2,7 @@
 apiVersion: networking.istio.io/{{ .Values.global.istioGateway.apiVersion }}
 kind: Gateway
 metadata:
-  name: {{ .Values.istioGateway.name }}
+  name: {{ include "istioGatewayName" . }}
   namespace: {{ .Values.global.istioGateway.namespace }}
 spec:
   selector:
