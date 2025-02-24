@@ -90,7 +90,7 @@ istiod:
     autoscaleEnabled: true
     autoscaleMin: 2
     cni:
-      enabled: true
+      enabled: false
     podAnnotations:
       # just copying from existing - maybe not needed
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
