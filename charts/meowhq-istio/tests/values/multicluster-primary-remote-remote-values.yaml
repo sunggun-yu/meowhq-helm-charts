@@ -1,0 +1,17 @@
+base:
+  profile: remote
+istiod:
+  profile: remote
+  global:
+    caAddress: "cert-manager-istio-csr.istio-system.svc:443"
+    network: "network2"
+    multiCluster:
+      enabled: true
+      clusterName: "cluster2"
+    configCluster: true
+    remotePilotAddress: 192.168.10.20 # loadbalancer ip of primary cluster cross-network-gateway svc
+  istiodRemote:
+    injectionPath: /inject/cluster/cluster2/net/network2
+  pilot:
+    env:
+      ENABLE_CA_SERVER: false

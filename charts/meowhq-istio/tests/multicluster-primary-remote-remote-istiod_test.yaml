@@ -1,0 +1,88 @@
+suite: istiod test for multicluster primary-remote remote config
+templates:
+  - charts/* # this includes all the templates in the subchart
+release:
+  name: "istio"
+  namespace: "istio-system"
+values:
+  - values/multicluster-primary-remote-remote-values.yaml
+tests:
+  - it: should not render PodDisruptionBudget
+    template: charts/istiod/templates/poddisruptionbudget.yaml
+    asserts:
+      - not: true
+        containsDocument:
+          apiVersion: policy/v1
+          kind: PodDisruptionBudget
+          name: istiod
+          namespace: istio-system
+
+  - it: should not render configmap for istiod deployment
+    template: charts/istiod/templates/configmap.yaml
+    asserts:
+    - not: true
+      containsDocument:
+        apiVersion: v1
+        kind: ConfigMap
+        name: istio
+        namespace: istio-system
+
+  - it: should not render istiod-injector-configmap
+    template: charts/istiod/templates/istiod-injector-configmap.yaml
+    asserts:
+    - not: true
+      containsDocument:
+        apiVersion: v1
+        kind: ConfigMap
+        name: istio-sidecar-injector
+        namespace: istio-system
+
+  - it: should not render service for regular istiod
+    template: charts/istiod/templates/service.yaml
+    asserts:
+      - not: true
+        containsDocument:
+          apiVersion: v1
+          kind: Service
+          name: istiod
+          namespace: istio-system
+
+  - it: should render service for remote istiod
+    template: charts/istiod/templates/remote-istiod-service.yaml
+    asserts:
+      - containsDocument:
+          apiVersion: v1
+          kind: Service
+          name: istiod
+          namespace: istio-system
+      - notExists:
+          path: metadata.labels["istio.io/revs"]
+      - notExists:
+          path: metadata.labels.app
+      - notExists:
+          path: metadata.labels.istio
+      - notExists:
+          path: metadata.labels.release
+      - contains:
+          path: spec.ports
+          content:
+            port: 15012
+            name: tcp-istiod
+            protocol: TCP
+      - contains:
+          path: spec.ports
+          content:
+            port: 443
+            targetPort: 15017
+            name: tcp-webhook
+            protocol: TCP
+
+  - it: should not render istiod deployment
+    template: charts/istiod/templates/deployment.yaml
+    asserts:
+    - not: true
+      containsDocument:
+        apiVersion: apps/v1
+        kind: Deployment
+        name: istiod
+        namespace: istio-system

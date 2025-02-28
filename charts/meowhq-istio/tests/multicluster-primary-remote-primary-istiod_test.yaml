@@ -1,0 +1,109 @@
+suite: istiod test for multicluster primary-remote primary config
+templates:
+  - charts/* # this includes all the templates in the subchart
+release:
+  name: "istio"
+  namespace: "istio-system"
+values:
+  - values/multicluster-primary-remote-primary-values.yaml
+tests:
+  - it: should render deployment with default values
+    template: charts/istiod/templates/configmap.yaml
+    asserts:
+      - containsDocument:
+          apiVersion: v1
+          kind: ConfigMap
+          name: istio
+          namespace: istio-system
+      - matchRegex:
+          path: data["mesh"]
+          pattern: "meshId: mesh1"
+
+  - it: should render deployment with default values
+    template: charts/istiod/templates/istiod-injector-configmap.yaml
+    asserts:
+      - containsDocument:
+          apiVersion: v1
+          kind: ConfigMap
+          name: istio-sidecar-injector
+          namespace: istio-system
+      - matchRegex:
+          path: data["values"]
+          pattern: '"caAddress": "cert-manager-istio-csr.istio-system.svc:443"'
+      - matchRegex:
+          path: data["values"]
+          pattern: '"externalIstiod": true'
+      - matchRegex:
+          path: data["values"]
+          pattern: '"meshID": "mesh1"'
+      - matchRegex:
+          path: data["values"]
+          pattern: \s+"multiCluster":\s+{\s+"clusterName":\s+"cluster1",\s+"enabled":\s+true\s+}\s*
+      - matchRegex:
+          path: data["values"]
+          pattern: '"network": "network1"'
+
+  - it: should render deployment with default values
+    template: charts/istiod/templates/deployment.yaml
+    asserts:
+      - containsDocument:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: istiod
+          namespace: istio-system
+      - equal:
+          path: spec.template.spec.containers[?(@.name == "discovery")].env[?(@.name == "CLUSTER_ID")].value
+          value: "cluster1"
+      - exists:
+          path: spec.template.spec.containers[?(@.name == "discovery")].env[?(@.name == "ENABLE_CA_SERVER")]
+      - equal:
+          path: spec.template.spec.containers[?(@.name == "discovery")].env[?(@.name == "ENABLE_CA_SERVER")].value
+          value: "false"
+      - equal:
+          path: spec.template.spec.containers[?(@.name == "discovery")].env[?(@.name == "EXTERNAL_ISTIOD")].value
+          value: "true"
+
+  - it: should render deployment with default values
+    template: charts/istiod/templates/service.yaml
+    asserts:
+      - containsDocument:
+          apiVersion: v1
+          kind: Service
+          name: istiod
+          namespace: istio-system
+      - isSubset:
+          path: metadata.labels
+          content:
+            app: istiod
+            istio: pilot
+            release: istio
+      - equal:
+          path: spec.selector
+          value:
+            app: istiod
+            istio: pilot
+      - contains:
+          path: spec.ports
+          content:
+            port: 15010
+            name: grpc-xds
+            protocol: TCP
+      - contains:
+          path: spec.ports
+          content:
+            port: 15012
+            name: https-dns
+            protocol: TCP
+      - contains:
+          path: spec.ports
+          content:
+            port: 443
+            name: https-webhook
+            targetPort: 15017
+            protocol: TCP
+      - contains:
+          path: spec.ports
+          content:
+            port: 15014
+            name: http-monitoring
+            protocol: TCP

@@ -1,4 +1,18 @@
 # =============================================================================
+# global configuration for all components including istio sub-charts istio base and istiod
+# istiod subchart uses this global section as well
+# please be careful not to put non istiod related configuration here in the global as much as possible
+# as istiod subchart will have all the values in the global to the configmap
+# https://helm.sh/docs/chart_template_guide/subcharts_and_globals/
+# =============================================================================
+global:
+  # `global.istioNamespace` is being used by istio base and istiod subcharts
+  istioNamespace: istio-system
+  # `global.imagePullSecrets` is being used by istio base and istiod subcharts
+  # be careful with format of the imagePullSecrets. it doesn't need `name` key
+  imagePullSecrets: []
+
+# =============================================================================
 # istio base Helm Chart configuration
 # =============================================================================
 base:
@@ -10,11 +24,69 @@ base:
 # =============================================================================
 istiod:
   enabled: true
+  ## --------------------------------------------------------------------------
+  # global configuration for istiod
+  ## --------------------------------------------------------------------------
+  global:
+    configValidation: true
+    ## ------------------------------------------------------------------------
+    ## below for the istio-csr integration for Vault PKI - istio multicluster setup
+    ## istiod.global.caAddress: "cert-manager-istio-csr.istio-system.svc:443"
+    ## ------------------------------------------------------------------------
+    # caAddress: "cert-manager-istio-csr.istio-system.svc:443"
+    caAddress: ""
+
+    ## ------------------------------------------------------------------------
+    ## below for the istio multicluster setup
+    ## common values for both Multi Primary and Primary-Remote multicluster setup
+    ## * meshID is not required for Remote cluster in Primary-Remote multicluster setup
+    ## ------------------------------------------------------------------------
+    # meshID: "change-me-to-the-mesh-name"
+    # network: "change-me-to-the-network-name"
+    # multiCluster:
+    #   enabled: true
+    #   clusterName: "change-me-to-the-cluster-name"
+    meshID: ""
+    network: ""
+    multiCluster:
+      enabled: false
+      clusterName: ""
+
+    ## ------------------------------------------------------------------------
+    ## below for the istio Primary-Remote multicluster setup
+    ## ------------------------------------------------------------------------
+    # Enable control of remote clusters.
+    # - true for Primary cluster for Primary-Remote multicluster setup
+    externalIstiod: false
+    # Configure a remote cluster as the config cluster for an external istiod.
+    # - true for Remote cluster for Primary-Remote multicluster setup
+    configCluster: false
+
+    ## ------------------------------------------------------------------------
+    ## proxy config - sidecar
+    ## ------------------------------------------------------------------------
+    proxy:
+      logLevel: info
+      # Resources for the sidecar.
+      resources:
+        # default values in istiod chart are 100m and 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+        # default values in istiod chart are 2000m and 1024Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi
+
+  ## --------------------------------------------------------------------------
+  ## below is for mesh configuration
+  ## https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1/
+  ## --------------------------------------------------------------------------
   meshConfig:
     accessLogFile: /dev/stdout
-    ## ----------------------------------------------------------------------
+    ## ------------------------------------------------------------------------
     ## below is to enable tracing with otel-tracing extension
-    ## ----------------------------------------------------------------------
+    ## ------------------------------------------------------------------------
     # enableTracing: true
     # extensionProviders:
     # - name: otel-tracing
@@ -28,6 +100,7 @@ istiod:
       holdApplicationUntilProxyStarts: true
       ## ----------------------------------------------------------------------
       ## below is for the istio multicluster setup: defaultConfig.proxyMetadata
+      ## https://istio.io/latest/docs/ops/configuration/traffic-management/dns-proxy/
       ## ----------------------------------------------------------------------
       # proxyMetadata:
       #   # Enable basic DNS proxying
@@ -46,46 +119,9 @@ istiod:
       - "*.cert-manager.svc.cluster.local"
       - "*.external-secrets.svc.cluster.local"
 
-  # global configuration for istiod
-  # istiod.global can be configured under global section
-  global:
-    configValidation: true
-    proxy:
-      logLevel: info
-      # Resources for the sidecar.
-      resources:
-        # default values in istiod chart are 100m and 128Mi
-        requests:
-          cpu: 100m
-          memory: 64Mi
-        # default values in istiod chart are 2000m and 1024Mi
-        limits:
-          cpu: 200m
-          memory: 128Mi
-
-    ## ------------------------------------------------------------------------
-    ## below for the istio-csr integration for Vault PKI - istio multicluster setup
-    ## istiod.global.caAddress: "cert-manager-istio-csr.istio-system.svc:443"
-    ## ------------------------------------------------------------------------
-    # caAddress: "cert-manager-istio-csr.istio-system.svc:443"
-
-    ## ------------------------------------------------------------------------
-    ## below for the istio multicluster setup
-    ## istiod.global.meshID: "change-me-to-the-mesh-name"
-    ## istiod.global.network: "change-me-to-the-cluster-name"
-    ## istiod.global.multiCluster.enabled: true
-    ## istiod.global.multiCluster.clusterName: "change-me-to-the-cluster-name"
-    ## istiod.global.externalIstiod: true # when expose istiod to external - primary-remote setup
-    ## ------------------------------------------------------------------------
-    # meshID: "change-me-to-the-mesh-name" # e.g. mesh1
-    # network: "change-me-to-the-network-name" # e.g. network1
-    # multiCluster:
-    #   enabled: true
-    #   clusterName: "change-me-to-the-cluster-name" # e.g. cluster1
-    # externalIstiod: true
-    multiCluster:
-      # make it true for multi-cluster setup
-      enabled: false
+  ## --------------------------------------------------------------------------
+  ## below is for the pilot config
+  ## --------------------------------------------------------------------------
   pilot:
     autoscaleEnabled: true
     autoscaleMin: 2

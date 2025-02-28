@@ -1,0 +1,12 @@
+istiod:
+  global:
+    caAddress: "cert-manager-istio-csr.istio-system.svc:443"
+    meshID: "mesh1"
+    network: "network1"
+    multiCluster:
+      enabled: true
+      clusterName: "cluster1"
+    externalIstiod: true
+  pilot:
+    env:
+      ENABLE_CA_SERVER: false

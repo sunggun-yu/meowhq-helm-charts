@@ -10,7 +10,7 @@ kind: Secret
 type: kubernetes.io/service-account-token
 metadata:
   name: istio-reader-service-account-istio-remote-secret-token
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ .Values.global.istioNamespace }}
   annotations:
     kubernetes.io/service-account.name: istio-reader-service-account
 {{- end }}

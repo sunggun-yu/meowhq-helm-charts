@@ -1,0 +1,20 @@
+suite: istiod test with default values
+templates:
+  - charts/* # this includes all the templates in the subchart
+release:
+  name: "istio"
+  namespace: "istio-system"
+tests:
+- it: should render deployment with default values
+  template: charts/istiod/templates/deployment.yaml
+  asserts:
+  - containsDocument:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: istiod
+      namespace: istio-system
+  - equal:
+      path: spec.template.spec.containers[?(@.name == "discovery")].env[?(@.name == "CLUSTER_ID")].value
+      value: "Kubernetes"
+  - notExists:
+      path: spec.template.spec.containers[?(@.name == "discovery")].env[?(@.name == "ENABLE_CA_SERVER")]

@@ -1,0 +1,4 @@
+istiod:
+  global:
+    configValidation: false
+    priorityClass: something-else
