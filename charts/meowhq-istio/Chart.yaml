@@ -11,5 +11,5 @@ dependencies:
     condition: base.enabled
   - name: istiod
     repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.24.3
+    version: 1.25.0
     condition: istiod.enabled
