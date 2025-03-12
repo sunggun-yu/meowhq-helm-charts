@@ -43,6 +43,13 @@ istiod:
     multiCluster:
       enabled: true
       clusterName: "cluster1"
+  meshConfig:
+    defaultConfig:
+      proxyMetadata:
+        # Enable basic DNS proxying
+        ISTIO_META_DNS_CAPTURE: "true"
+        # Enable automatic address allocation, optional
+        ISTIO_META_DNS_AUTO_ALLOCATE: "true"
   pilot:
     env:
       ENABLE_CA_SERVER: false
@@ -75,6 +82,13 @@ istiod:
       enabled: true
       clusterName: "cluster1"
     externalIstiod: true
+  meshConfig:
+    defaultConfig:
+      proxyMetadata:
+        # Enable basic DNS proxying
+        ISTIO_META_DNS_CAPTURE: "true"
+        # Enable automatic address allocation, optional
+        ISTIO_META_DNS_AUTO_ALLOCATE: "true"
   pilot:
     env:
       ENABLE_CA_SERVER: false
