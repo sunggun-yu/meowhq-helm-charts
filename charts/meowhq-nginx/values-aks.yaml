@@ -1,0 +1,14 @@
+# ------------------------------------------------------------------------------
+# values for nginx: AKS, just scenario for testing
+# ------------------------------------------------------------------------------
+
+nginx:
+  image:
+    tag: 1.25.5-debian-12-r0
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
