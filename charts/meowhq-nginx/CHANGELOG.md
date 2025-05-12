@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.9.0...meowhq-nginx-v1.9.1) (2025-05-12)
+
+
+### Bug Fixes
+
+* build failed ([ad89205](https://github.com/sunggun-yu/meowhq-helm-charts/commit/ad89205a069e5a7f507ff021254bac252fce82d3))
+
 ## [1.9.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.8.0...meowhq-nginx-v1.9.0) (2025-05-12)
 
 
