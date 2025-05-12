@@ -1,3 +1,3 @@
 # nginx helm chart
 
-test after rebuilding cluster
+test after rebuilding cluster:
