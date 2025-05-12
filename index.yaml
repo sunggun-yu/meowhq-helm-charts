@@ -117,6 +117,19 @@ entries:
     version: 0.0.0
   meowhq-nginx:
   - apiVersion: v2
+    created: "2025-05-12T17:14:21.518572782Z"
+    dependencies:
+    - name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.0.0
+    description: A Helm chart for nginx
+    digest: 9c8290ea799d3b8b449702625c231b461bc56e2bc45a68c8f1aacea34c9b1e05
+    name: meowhq-nginx
+    type: application
+    urls:
+    - https://github.com/sunggun-yu/meowhq-helm-charts/releases/download/meowhq-nginx-1.9.2/meowhq-nginx-1.9.2.tgz
+    version: 1.9.2
+  - apiVersion: v2
     created: "2025-05-12T16:19:36.034175761Z"
     dependencies:
     - name: nginx
@@ -129,4 +142,4 @@ entries:
     urls:
     - https://github.com/sunggun-yu/meowhq-helm-charts/releases/download/meowhq-nginx-1.9.1/meowhq-nginx-1.9.1.tgz
     version: 1.9.1
-generated: "2025-05-12T16:19:36.034194817Z"
+generated: "2025-05-12T17:14:21.518597909Z"
