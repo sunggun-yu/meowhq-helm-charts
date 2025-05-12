@@ -115,4 +115,18 @@ entries:
     urls:
     - https://github.com/sunggun-yu/meowhq-helm-charts/releases/download/meowhq-istio-gateway-0.0.0/meowhq-istio-gateway-0.0.0.tgz
     version: 0.0.0
-generated: "2025-02-24T20:43:57.464023887Z"
+  meowhq-nginx:
+  - apiVersion: v2
+    created: "2025-05-12T16:19:36.034175761Z"
+    dependencies:
+    - name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.0.0
+    description: A Helm chart for nginx
+    digest: 62dac4c58fafdfc05a9cbdcb1aadec8cb806864dd5e582c871f3c186015daf21
+    name: meowhq-nginx
+    type: application
+    urls:
+    - https://github.com/sunggun-yu/meowhq-helm-charts/releases/download/meowhq-nginx-1.9.1/meowhq-nginx-1.9.1.tgz
+    version: 1.9.1
+generated: "2025-05-12T16:19:36.034194817Z"
