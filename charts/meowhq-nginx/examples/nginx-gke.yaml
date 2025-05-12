@@ -16,7 +16,7 @@ spec:
       valueFiles:
       - values.yaml
       - values-gke.yaml
-      values:
+      values: |2-
         nginx:
           # additional customization
           replicaCount: 1

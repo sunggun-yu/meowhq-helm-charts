@@ -16,7 +16,7 @@ spec:
       valueFiles:
       - values.yaml
       - values-aks.yaml
-      values:
+      values: |2-
         nginx:
           # additional customization
           replicaCount: 2
