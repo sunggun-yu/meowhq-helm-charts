@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.8.0...meowhq-nginx-v1.9.0) (2025-05-12)
+
+
+### Features
+
+* platform specific default values ([f569435](https://github.com/sunggun-yu/meowhq-helm-charts/commit/f569435abcf218c811bd19227f1dfdb2560b9ced))
+
 ## [1.8.0](https://github.com/sunggun-yu/meowhq-helm-charts/compare/meowhq-nginx-v1.7.0...meowhq-nginx-v1.8.0) (2025-02-22)
 
 
