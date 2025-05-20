@@ -7,4 +7,4 @@ appVersion: 1.24.3
 dependencies:
   - name: gateway
     repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.24.3
+    version: 1.24.6
